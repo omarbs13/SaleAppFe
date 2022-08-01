@@ -7,6 +7,8 @@ import { PagesModule } from './pages/pages.module';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MethodsHttpProvider } from './providers/methodsHttpProviders';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     PagesModule,
-    AppRoutingModule,SharedModule, BrowserAnimationsModule
+    AppRoutingModule,SharedModule, BrowserAnimationsModule,HttpClientModule
   ],
-  providers: [],
+  providers: [MethodsHttpProvider],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

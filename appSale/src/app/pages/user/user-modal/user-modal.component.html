@@ -1,12 +1,37 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<h1 mat-dialog-title>Usuario</h1>
+<hr>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="userName">Nombre de usuario</label>
+      <input type="text" class="form-control" formControlName="userName" placeholder="usuario123">
+      <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="text-danger">
+        <div *ngIf="name?.errors?.['required']">
+          El nombre de usuario es requerido.
+        </div>     
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="paswword">
+      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
+        <div *ngIf="password?.errors?.['required']">
+          El password es requerido.
+        </div>     
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rolId">Rol</label>
+      <select class="form-control" FormControlName="rolId" >
+        <option *ngFor="let item of rolesLst" value="{{item.id}}">{{item.name}}</option>
+      </select>
+    </div>
+    <hr>
+
+    <div style="text-align: right;">
+      <button class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+      <button class="btn btn-success" [disabled]="!userForm.valid">Guardar</button>
+    </div>
+
+  </form>
 </div>

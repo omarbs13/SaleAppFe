@@ -11,7 +11,8 @@ import { PagesComponent } from './pages.component';
 import { DataTablesModule } from 'angular-datatables';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UserModalComponent } from './user/user-modal/user-modal.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
 const materialModules = [
 /*   MatButtonModule,
   MatIconModule,
@@ -30,7 +31,7 @@ const materialModules = [
     PagesComponent,
     UserModalComponent,
   ],
-  imports: [CommonModule, RouterModule,DataTablesModule,materialModules,FormsModule],
+  imports: [CommonModule, RouterModule,DataTablesModule,materialModules,FormsModule,ReactiveFormsModule],
   exports: [
     CustomerComponent,
     DashboardComponent,
@@ -39,6 +40,7 @@ const materialModules = [
     UserComponent,
     PagesComponent,materialModules
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers:[MethodsHttpProvider]
 })
 export class PagesModule {}

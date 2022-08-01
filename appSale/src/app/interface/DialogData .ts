@@ -1,5 +1,8 @@
 
 export interface DialogData {
-    animal: string;
-    name: string;
+    success: boolean;
+    msg: string;
   }
+
+
+  

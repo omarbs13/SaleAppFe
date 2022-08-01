@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogData } from 'src/app/interface/DialogData ';
 import Swal from 'sweetalert2';
 import { UserModalComponent } from './user-modal/user-modal.component';
 
@@ -10,8 +11,7 @@ import { UserModalComponent } from './user-modal/user-modal.component';
   ]
 })
 export class UserComponent implements OnInit {
-  animal: string="";
-  name: string="";
+  success:boolean=false;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -35,14 +35,21 @@ export class UserComponent implements OnInit {
 
   open(){
     const dialogRef = this.dialog.open(UserModalComponent, {
-      width: '250px',
-      data: {name: this.name, animal: this.animal},
+      width: '350px',
+     
+      data: {success: false, msg: ''},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-      console.log(this.animal);
+    dialogRef.afterClosed().subscribe((result:DialogData) => {
+      console.log('The dialog was closed',result);
+      this.success = result.success;
+      if(result.success){
+        Swal.fire({ title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'})
+      }
+      console.log(this.success);
     });
   }
 
