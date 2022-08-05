@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
 import { RolModel } from 'src/app/models/RolModel';
 import { UserService } from '../../../services/user.service';
-import Swal from 'sweetalert2';
+import { UserModelUpd } from '../../../interface/user.mode';
 
 @Component({
   selector: 'app-user-modal',
@@ -13,55 +13,76 @@ import Swal from 'sweetalert2';
 })
 export class UserModalComponent implements OnInit {
   titleModal: string = '';
-
-  selectedRol:number=2;
-  rolesLst:Array<RolModel> = [
-      {id: 2, name: "Cajero"},
-      {id: 3, name: "Supervisor"},
-      {id: 1, name: "Administrador"}
+  isNewUser: boolean = true;
+  selectedRol: number = 2;
+  rolesLst: Array<RolModel> = [
+    { id: 2, name: 'Cajero' },
+    { id: 3, name: 'Supervisor' },
+    { id: 1, name: 'Administrador' },
   ];
 
-  userForm = new FormGroup({
+  userForm: FormGroup = new FormGroup({
+    userId: new FormControl(''),
     userName: new FormControl(''),
     password: new FormControl(''),
     rolId: new FormControl(''),
+    user: new FormControl(''),
   });
 
   constructor(
     public dialogRef: MatDialogRef<UserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private service:UserService
+    private service: UserService
   ) {
-    this.createForm();
-    console.log('DialogData',data);
+    dialogRef.disableClose = true;
+    this.data.success = false;
+    this.isNewUser = data.id == 0;
+    if (!this.isNewUser) {
+      this.service.getUser(data.id).subscribe((res) => {
+        this.createForm(res);
+      });
+    } else {
+      this.createForm();
+    }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dialogRef.keydownEvents().subscribe((event) => {
+      if (event.key === 'Escape') {   
+        this.onCancel();
+      }
+    });
+  }
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.data.success = false;
+    this.dialogRef.close(this.data);
   }
 
-  onSubmit() {
+  onSubmit() {    
     if (this.userForm.invalid) {
       console.log(this.userForm);
       return;
     }
-    
-    console.warn(this.userForm.value);
-    this.data.success=true;
-    this.dialogRef.close(this.data);
-   /*  this.service.postUser(this.userForm.value).subscribe((data: any) => {
-      console.log(data);
-      
-      if (!data.success) {      
-        
-      } else {
-         
-      }
-    }); */
+
+    if (this.isNewUser) {
+      this.service.postUser(this.userForm.value).subscribe((data: any) => {
+        if (data.success) {
+          this.data.success = true;
+          this.dialogRef.close(this.data);
+        }
+      });
+    }
+    if (!this.isNewUser) {
+      this.service.putUser(this.userForm.value).subscribe((data: any) => {
+        if (data.success) {
+          this.data.success = true;
+          this.dialogRef.close(this.data);
+        }
+      });
+    }
   }
- 
+
   get name() {
     return this.userForm.get('userName');
   }
@@ -69,11 +90,18 @@ export class UserModalComponent implements OnInit {
     return this.userForm.get('password');
   }
 
-  createForm(){
+  createForm(user?: UserModelUpd) {
+    let rol=2;
+    if(user?.rolId!=undefined){
+      rol=user?.rolId;
+    }
+   
     this.userForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      rolId: new FormControl('2'),
+      userId: new FormControl(user?.userId),
+      userName: new FormControl(user?.userName, [Validators.required]),
+      password: new FormControl(user?.password, [Validators.required]),
+      rolId: new FormControl(rol),
+      user: new FormControl('admin'),
     });
   }
 }

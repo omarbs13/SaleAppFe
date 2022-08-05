@@ -1,8 +1,5 @@
-
 export interface DialogData {
-    success: boolean;
-    msg: string;
-  }
-
-
-  
+  success: boolean;
+  msg: string;
+  id:number
+}

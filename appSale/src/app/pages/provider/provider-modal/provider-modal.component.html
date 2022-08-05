@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>Usuario</h1>
 <hr>
 <div mat-dialog-content>
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="userName">Nombre de usuario</label>
-      <input [readonly]="!isNewUser" type="text" class="form-control" formControlName="userName" placeholder="usuario123">
+      <input type="text" class="form-control" formControlName="userName" placeholder="usuario123">
       <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="text-danger">
         <div *ngIf="name?.errors?.['required']">
           El nombre de usuario es requerido.
@@ -22,13 +22,14 @@
     </div>
     <div class="form-group">
       <label for="rolId">Rol</label>
-      <select class="form-control" formControlName="rolId" >
-        <option *ngFor="let item of rolesLst" value="{{item.id}}">{{item.name}}</option>
+      <select class="form-control" FormControlName="rolId" >
+        
       </select>
-    </div>   
+    </div>
     <hr>
+
     <div style="text-align: right;">
-      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+      <button class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
       <button class="btn btn-success" [disabled]="!userForm.valid">Guardar</button>
     </div>
 

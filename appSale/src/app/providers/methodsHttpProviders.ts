@@ -10,12 +10,29 @@ export class MethodsHttpProvider {
     return this.http.get<any>(url);
   }
 
+  httpGetById(url: string, id: number): Observable<any> {
+    return this.http.get<any>(`${url}?id=${id}`);
+  }
+
+  deleteById(url: string, id: number): Observable<any> {
+    return this.http.delete<any>(`${url}?userId=${id}`);
+  }
+
   httpPost(url: string, body: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'     
-      })
-    }    
-    return this.http.post<any>(url, body,httpOptions);
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(url, body, httpOptions);
+  }
+
+  httpPut(url: string, body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.put<any>(url, body, httpOptions);
   }
 }

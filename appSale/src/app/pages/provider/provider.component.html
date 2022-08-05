@@ -1,1 +1,30 @@
-<p>provider works!</p>
+<button type="button" class="btn btn-primary" (click)="open(0)">
+    Nuevo usuario
+  </button>
+  <br>
+  <br>
+<table  class="row-border hover">
+    <thead>
+        <tr>
+            <th>Nombre de usuario</th>
+            <th>Rol</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr >
+            <td>omarbs134</td>
+            <td>administrador</td>
+            <td>
+                <button style="font-size: large; color: red;" title="borrar" (click)="delete(1)">
+                    <i class="mdi mdi-trash-can icon" ></i>
+                    <span class="badge badge-xs rounded-circle" ></span>
+                  </button> |
+                  <button class="" style="font-size: large; color: blue;" title="editar" (click)="open(1)">
+                    <i class="mdi mdi-lead-pencil"></i>
+                  </button>
+            </td>
+        </tr>
+      
+    </tbody>
+</table>
