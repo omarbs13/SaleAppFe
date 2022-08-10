@@ -2,38 +2,40 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
 import Swal from 'sweetalert2';
-import { UserModalComponent } from './user-modal/user-modal.component';
-import { UserService } from '../../services/user.service';
-import { UserModel } from 'src/app/interface/user.mode';
+import { ProviderModel } from 'src/app/interface/user.mode';
 import * as FileSaver from 'file-saver';
-
+import { ProviderModalComponent } from './provider-modal/provider-modal.component';
+import { ProviderService } from '../../services/provider.service';
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
+  selector: 'app-provider',
+  templateUrl: './provider.component.html',
   styles: [],
 })
-export class UserComponent implements OnInit {
+export class ProviderComponent implements OnInit {
   success: boolean = false;
-  users: UserModel[] = [];
-  constructor(public dialog: MatDialog, private userService: UserService) {
-    this.users = [];
+  providers: ProviderModel[] = [];
+  constructor(
+    public dialog: MatDialog,
+    private providerService: ProviderService
+  ) {
+    this.providers = [];
   }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getProviders();
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Quieres eliminar este usuario?',
+      title: 'Quieres eliminar este proveedor?',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.deletetUser(id).subscribe((res) => {
-          if (res.userId > 0) {
-            this.getUsers();
+        this.providerService.deletetProvider(id).subscribe((res) => {
+          if (res.providerCustomerId > 0) {
+            this.getProviders();
             Swal.fire('Eliminado!', '', 'success');
           } else {
             Swal.fire('Ocurrio un error!', '', 'warning');
@@ -44,8 +46,8 @@ export class UserComponent implements OnInit {
   }
 
   open(id: number) {
-    const dialogRef = this.dialog.open(UserModalComponent, {
-      width: '350px',
+    const dialogRef = this.dialog.open(ProviderModalComponent, {
+      width: '450px',
       data: { success: false, id: id },
     });
 
@@ -53,26 +55,26 @@ export class UserComponent implements OnInit {
       this.success = result.success;
       if (result.success) {
         Swal.fire('Registro guardado!', '', 'success');
-        this.getUsers();
+        this.getProviders();
       }
     });
   }
 
-  getUsers() {
-    this.userService.getAllUser().subscribe((data) => {
-      this.users = data;
+  getProviders() {
+    this.providerService.getAllProviders().subscribe((data) => {
+      this.providers = data;
     });
   }
 
   exportExcel() {
     import('xlsx').then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(this.users);
+      const worksheet = xlsx.utils.json_to_sheet(this.providers);
       const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, {
         bookType: 'xlsx',
         type: 'array',
       });
-      this.saveAsExcelFile(excelBuffer, 'usuarios');
+      this.saveAsExcelFile(excelBuffer, 'proveedores');
     });
   }
 

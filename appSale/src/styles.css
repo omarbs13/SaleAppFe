@@ -17446,3 +17446,22 @@
  
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/*==== Estilos oceron ======*/
+/*Para el boton de excel descarga*/
+.dwnExcel{
+  color:green;
+}
+
+.btnDelete{
+  font-size: large; color: red;
+}
+
+.btnEdit{
+  font-size: large; color: blue;
+}
+
+.tblActions{
+  width:10%
+}

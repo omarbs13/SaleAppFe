@@ -4,8 +4,8 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { PagesComponent } from "./pages.component";
 import { UserComponent } from './user/user.component';
 import { CustomerComponent } from './customer/customer.component';
-import { ProviderComponent } from './provider/provider.component';
 import { SaleComponent } from './sale/sale.component';
+import { ProviderComponent } from "./prov/provider.component";
 
 const routes: Routes = [
     {

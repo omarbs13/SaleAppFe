@@ -14,3 +14,15 @@ export interface UserModelUpd {
   updatePassword:boolean;
   user:string;
 }
+
+export interface ProviderModel {
+  providerCustomerId:number
+  providerName: string;
+  email : string;
+  rfc: number;
+  street: string;  
+  state: string;
+  city: string;
+  zipCode: string;
+  phone: string;
+}

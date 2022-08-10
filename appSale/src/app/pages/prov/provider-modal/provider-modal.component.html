@@ -1,0 +1,49 @@
+<!-- <h1 mat-dialog-title>Usuario</h1>
+<hr>
+<div mat-dialog-content>
+  <form [formGroup]="providerForm" (ngSubmit)="onSubmit()">
+   
+    <div layout = "row">
+      <div flex = "50">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" formControlName="email" placeholder="example@gmail.com">
+          <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+            <div *ngIf="email?.errors?.['required']">
+              El email es requerido.
+            </div>
+          </div>
+        </div>
+       
+      </div>
+      <div flex = "50">
+        <div class="form-group">
+          <label for="rfc">RFC</label>
+          <input type="text" class="form-control" formControlName="rfc" placeholder="">
+          <div *ngIf="rfc?.invalid && (rfc?.dirty || rfc?.touched)" class="text-danger">
+            <div *ngIf="rfc?.errors?.['required']">
+              El rfc es requerido.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+   
+
+
+    <hr>
+    <div style="text-align: right;">
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+      <button class="btn btn-success" [disabled]="!providerForm.valid">Guardar</button>
+    </div>
+
+  </form>
+</div> -->
+
+<div class="row" style="color:black">
+<div class="col-3" style="color: red;"></div>
+<div class="col-3"  style="color: yellow;"></div>
+<div class="col-3"  style="color: green;"></div>
+
+</div>

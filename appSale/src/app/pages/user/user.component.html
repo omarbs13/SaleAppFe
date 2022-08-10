@@ -7,7 +7,7 @@
 [exportHeader]="'customExportHeader'">
 <ng-template pTemplate="caption">
     <div class="p-d-flex">
-        <button type="button" class="btn btn-default" (click)="exportExcel()" style="color:green ;">
+        <button type="button" class="btn btn-default dwnExcel" (click)="exportExcel()">
             <em class="mdi mdi-file-download-outline icon" ></em>
             Excel
           </button>        
@@ -17,7 +17,7 @@
         <tr>
             <th style="width:40% ;">Nombre de usuario</th>
             <th style="width:40% ;">Rol</th>
-            <th style="width:10% ;"></th>
+            <th class="tblActions"></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
@@ -25,11 +25,11 @@
             <td>{{item.userName}}</td>
             <td>{{item.rolName}}</td>
             <td>
-                <button style="font-size: large; color: red;" title="borrar" (click)="delete(item.userId)">
+                <button class="btnDelete" title="borrar" (click)="delete(item.userId)">
                     <em class="mdi mdi-trash-can icon" ></em>
                     <span class="badge badge-xs rounded-circle" ></span>
                   </button> |
-                  <button class="" style="font-size: large; color: blue;" title="editar" (click)="open(item.userId)">
+                  <button class="btnEdit" title="editar" (click)="open(item.userId)">
                     <em class="mdi mdi-lead-pencil"></em>
                   </button>
             </td>
