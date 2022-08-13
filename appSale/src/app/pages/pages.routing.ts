@@ -7,6 +7,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { SaleComponent } from './sale/sale.component';
 import { ProviderComponent } from "./prov/provider.component";
 import { SubsidiaryComponent } from './company/subsidiary/subsidiary.component';
+import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
     {
@@ -19,7 +20,7 @@ const routes: Routes = [
         { path: 'customer', component: CustomerComponent},
         { path: 'inventory', component: UserComponent},
         { path: 'provider', component: ProviderComponent},
-        { path: 'products', component: ProviderComponent},
+        { path: 'product', component: ProductComponent},
         { path: 'order', component: ProviderComponent},
         { path: 'subsidiary', component: SubsidiaryComponent},
       ],

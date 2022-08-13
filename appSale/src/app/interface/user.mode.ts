@@ -61,3 +61,13 @@ export interface SubsidiaryModel {
   zipCode: string;
   phone: string;
 }
+
+export interface ProductModel {
+  productId:number
+  productName: string;
+  description : string;
+  salePrice:number;
+  purchasePrice: number;  
+  packagePrice: number;
+  providerId: number;
+}

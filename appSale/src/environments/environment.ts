@@ -36,6 +36,9 @@ export const ApiDelSubsidiary = `${URL}/Company/DeleteSubsidiary`;
 export const ApiSubsidiaryGetAll = `${URL}/Company/GetAllSubsidiary`;
 export const ApiSubsidiaryGet = `${URL}/Company/GetSubsidiary`;
 
+export const ApiProduct = `${URL}/Product`;
+export const ApiProductGetAll = `${URL}/Product/GetAll`;
+export const ApiProductGet = `${URL}/Product/Get`;
 
 export const GetStates = `${URL}/Catalog/GetState`;
 export const GetCities = `${URL}/Catalog/GetCity`;
