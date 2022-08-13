@@ -8,11 +8,9 @@ import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
   providedIn: 'root'
 })
 export class ProviderService {
-  users = new Array<any>();
   constructor(private methodsHttp: MethodsHttpProvider) {}
 
   postProvider(request: any) {
-    console.log('object');
     return this.methodsHttp.httpPost(ApiProvider, JSON.stringify(request)).pipe(
       map((data) => {
         return data;
@@ -45,7 +43,7 @@ export class ProviderService {
   }
 
   deletetProvider(id: number): Observable<ProviderModel> {
-    return this.methodsHttp.deleteById(ApiProvider, id).pipe(
+    return this.methodsHttp.deleteById(ApiProvider, id,'providerId').pipe(
       map((response) => {
         return response.data;
       })

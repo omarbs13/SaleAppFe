@@ -59,7 +59,7 @@ export class UserService {
   }
 
   deletetUser(id: number): Observable<UserModelUpd> {
-    return this.methodsHttp.deleteById(ApiUser, id).pipe(
+    return this.methodsHttp.deleteById(ApiUser, id,'userId').pipe(
       map((response) => {
         return response.data;
       })

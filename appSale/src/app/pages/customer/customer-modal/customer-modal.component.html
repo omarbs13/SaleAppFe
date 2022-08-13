@@ -1,17 +1,17 @@
-<h1 mat-dialog-title>Proveedores</h1>
+<h1 mat-dialog-title>Clientes</h1>
 <hr>
 <div mat-dialog-content>
-  <form [formGroup]="providerForm" (ngSubmit)="onSubmit()" autocomplete="off">
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" autocomplete="off">
     <table style="width:100%;">
       <tr>
         <td style="width:40%;">
           <div class="form-group">
             <mat-form-field appearance="legacy">
-              <mat-label for="providerName">Nombre proveedor</mat-label>
-              <input matInput type="text" formControlName="providerName" maxlength="50">
+              <mat-label for="customerName">Nombre del cliente</mat-label>
+              <input matInput type="text" formControlName="customerName" maxlength="50">
             </mat-form-field>
-            <div *ngIf="providerName?.invalid && (providerName?.dirty || providerName?.touched)" class="text-danger">
-              <div *ngIf="providerName?.errors?.['required']">
+            <div *ngIf="customerName?.invalid && (customerName?.dirty || customerName?.touched)" class="text-danger">
+              <div *ngIf="customerName?.errors?.['required']">
                 El nombre es requerido.
               </div>
             </div>
@@ -116,7 +116,13 @@
           </div>
         </td>
         <td style="width:10%;"></td>
-        <td style="width:40%;">          
+        <td style="width:40%;">  
+          <div class="form-group">
+          <mat-form-field appearance="legacy">
+            <mat-label for="balance">Saldo</mat-label>
+            <input matInput type="number" formControlName="balance" maxlength="50">
+          </mat-form-field>
+        </div>
         </td>
       </tr>
       <tr>
@@ -139,7 +145,7 @@
     <hr>
     <div style="text-align: right;">
       <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
-      <button class="btn btn-success" [disabled]="!providerForm.valid">Guardar</button>
+      <button class="btn btn-success" [disabled]="!customerForm.valid">Guardar</button>
     </div>
 
   </form>

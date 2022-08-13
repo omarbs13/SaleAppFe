@@ -2,10 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
-import { RolModel } from 'src/app/models/RolModel';
-import { CityModel, ProviderModel, StateModel, UserModelUpd } from '../../../interface/user.mode';
+import { CityModel, ProviderModel, StateModel } from '../../../interface/user.mode';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { ProviderService } from 'src/app/services/provider.service';
+import { RfcValid } from 'src/environments/environment';
 
 @Component({
   selector: 'app-provider-modal',
@@ -18,12 +18,7 @@ export class ProviderModalComponent implements OnInit {
   selectedRol: number = 2;
   states: StateModel[] = [];
   cities: CityModel[] = [];
-  rolesLst: Array<RolModel> = [
-    { id: 2, name: 'Cajero' },
-    { id: 3, name: 'Supervisor' },
-    { id: 1, name: 'Administrador' },
-  ];
-
+  
   providerForm: FormGroup = new FormGroup({
     providerCustomerId: new FormControl(''),
     providerName: new FormControl(''),
@@ -122,11 +117,12 @@ export class ProviderModalComponent implements OnInit {
 
   
   createForm(provider?: ProviderModel) {   
+    let id=provider? provider.providerCustomerId:0;
     this.providerForm = new FormGroup({
-      providerCustomerId: new FormControl(provider?.providerCustomerId),
+      providerCustomerId: new FormControl(id),
       providerName: new FormControl(provider?.providerName, Validators.required),
       email: new FormControl(provider?.email, [Validators.required, Validators.email]),
-      rfc: new FormControl(provider?.rfc, [Validators.required,Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$')]),
+      rfc: new FormControl(provider?.rfc, [Validators.required,Validators.pattern(RfcValid)]),
       street: new FormControl(provider?.street, Validators.required),
       state: new FormControl(provider?.state, Validators.required),
       city: new FormControl(provider?.city),

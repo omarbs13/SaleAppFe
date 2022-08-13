@@ -16,7 +16,7 @@ import { MethodsHttpProvider } from './providers/methodsHttpProviders';
 @NgModule({
   declarations: [
     AppComponent,
-    NopageFoundComponent,   
+    NopageFoundComponent,
   ],
   imports: [
     BrowserModule,

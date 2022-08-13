@@ -15,6 +15,19 @@ export interface UserModelUpd {
   user:string;
 }
 
+export interface CustomerModel  {
+  customerId:number
+  customerName: string;
+  email : string;
+  rfc: number;
+  Balance:number;
+  street: string;  
+  state: string;
+  city: string;
+  zipCode: string;
+  phone: string;
+}
+
 export interface ProviderModel {
   providerCustomerId:number
   providerName: string;
