@@ -3,18 +3,21 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
 import { RolModel } from 'src/app/models/RolModel';
-import { UserService } from '../../../services/user.service';
-import { UserModelUpd } from '../../../interface/user.mode';
+import { CityModel, ProviderModel, StateModel, UserModelUpd } from '../../../interface/user.mode';
+import { CatalogService } from 'src/app/services/catalog.service';
+import { ProviderService } from 'src/app/services/provider.service';
 
 @Component({
   selector: 'app-provider-modal',
   templateUrl: './provider-modal.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class ProviderModalComponent implements OnInit {
   titleModal: string = '';
-  isNewUser: boolean = true;
+  isNewProvider: boolean = true;
   selectedRol: number = 2;
+  states: StateModel[] = [];
+  cities: CityModel[] = [];
   rolesLst: Array<RolModel> = [
     { id: 2, name: 'Cajero' },
     { id: 3, name: 'Supervisor' },
@@ -31,20 +34,24 @@ export class ProviderModalComponent implements OnInit {
     city: new FormControl(''),
     zipCode: new FormControl(''),
     phone: new FormControl(''),
+    phone2: new FormControl('')
   });
 
   constructor(
     public dialogRef: MatDialogRef<ProviderModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private service: UserService
+    private providerService: ProviderService,
+    private catService: CatalogService
   ) {
     dialogRef.disableClose = true;
     this.data.success = false;
-    this.isNewUser = data.id == 0;
-    if (!this.isNewUser) {
-      this.service.getUser(data.id).subscribe((res) => {
+    this.isNewProvider = data.id == 0;
+    if (!this.isNewProvider) {
+    
+       this.providerService.geProvider(data.id).subscribe((res) => {
+        this.getCities(res.state);
         this.createForm(res);
-      });
+      }); 
     } else {
       this.createForm();
     }
@@ -52,10 +59,11 @@ export class ProviderModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogRef.keydownEvents().subscribe((event) => {
-      if (event.key === 'Escape') {   
+      if (event.key === 'Escape') {
         this.onCancel();
       }
     });
+    this.catService.getStates().subscribe(data =>this.states=data);
   }
 
   onCancel(): void {
@@ -63,28 +71,28 @@ export class ProviderModalComponent implements OnInit {
     this.dialogRef.close(this.data);
   }
 
-  onSubmit() {    
+  onSubmit() {
     if (this.providerForm.invalid) {
       console.log(this.providerForm);
       return;
     }
-
-    if (this.isNewUser) {
-      this.service.postUser(this.providerForm.value).subscribe((data: any) => {
+    console.log(this.providerForm);
+    if (this.isNewProvider) {
+      this.providerService.postProvider(this.providerForm.value).subscribe((data: any) => {
         if (data.success) {
           this.data.success = true;
           this.dialogRef.close(this.data);
         }
       });
     }
-    if (!this.isNewUser) {
-      this.service.putUser(this.providerForm.value).subscribe((data: any) => {
+     if (!this.isNewProvider) {
+      this.providerService.putProvider(this.providerForm.value).subscribe((data: any) => {
         if (data.success) {
           this.data.success = true;
           this.dialogRef.close(this.data);
         }
       });
-    }
+    } 
   }
 
   get providerName() {
@@ -92,6 +100,9 @@ export class ProviderModalComponent implements OnInit {
   }
   get email() {
     return this.providerForm.get('email');
+  }
+  get phone() {
+    return this.providerForm.get('phone');
   }
   get rfc() {
     return this.providerForm.get('rfc');
@@ -102,19 +113,35 @@ export class ProviderModalComponent implements OnInit {
   get state() {
     return this.providerForm.get('state');
   }
+  get city() {
+    return this.providerForm.get('city');
+  }
+  get zipCode() {
+    return this.providerForm.get('zipCode');
+  }
 
-  createForm(user?: UserModelUpd) {
-    let rol=2;
-    if(user?.rolId!=undefined){
-      rol=user?.rolId;
-    }
-   
+  
+  createForm(provider?: ProviderModel) {   
     this.providerForm = new FormGroup({
-      userId: new FormControl(user?.userId),
-      userName: new FormControl(user?.userName, [Validators.required]),
-      password: new FormControl(user?.password, [Validators.required]),
-      rolId: new FormControl(rol),
-      user: new FormControl('admin'),
+      providerCustomerId: new FormControl(provider?.providerCustomerId),
+      providerName: new FormControl(provider?.providerName, Validators.required),
+      email: new FormControl(provider?.email, [Validators.required, Validators.email]),
+      rfc: new FormControl(provider?.rfc, [Validators.required,Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$')]),
+      street: new FormControl(provider?.street, Validators.required),
+      state: new FormControl(provider?.state, Validators.required),
+      city: new FormControl(provider?.city),
+      zipCode: new FormControl(provider?.zipCode, Validators.required),
+      phone: new FormControl(provider?.phone, Validators.required),
+      phone2: new FormControl('-')
     });
+  }
+
+  getCities(idState:any){
+    this.catService.getCities(idState).subscribe(data =>this.cities=data);
+    console.log(this.cities);
+  }
+  toUpperCase(){
+    let rfcToUpper=this.rfc?.value;
+    this.rfc?.setValue(rfcToUpper.toString().toUpperCase());
   }
 }

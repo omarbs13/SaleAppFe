@@ -22,6 +22,9 @@ export const ApiUser = `${URL}/user`;
 export const ApiUserGetAll = `${URL}/user/GetAll`;
 export const ApiUserGet = `${URL}/user/Get`;
 
-export const ApiProvider = `${URL}/provider`;
+export const ApiProvider = `${URL}/Provider`;
 export const ApiProviderGetAll = `${URL}/provider/GetAll`;
 export const ApiProviderGet = `${URL}/provider/Get`;
+
+export const GetStates = `${URL}/Catalog/GetState`;
+export const GetCities = `${URL}/Catalog/GetCity`;

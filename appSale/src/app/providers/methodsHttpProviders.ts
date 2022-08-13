@@ -15,7 +15,7 @@ export class MethodsHttpProvider {
   }
 
   deleteById(url: string, id: number): Observable<any> {
-    return this.http.delete<any>(`${url}?userId=${id}`);
+    return this.http.delete<any>(`${url}?providerId=${id}`);
   }
 
   httpPost(url: string, body: any): Observable<any> {

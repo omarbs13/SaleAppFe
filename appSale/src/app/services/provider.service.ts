@@ -12,6 +12,7 @@ export class ProviderService {
   constructor(private methodsHttp: MethodsHttpProvider) {}
 
   postProvider(request: any) {
+    console.log('object');
     return this.methodsHttp.httpPost(ApiProvider, JSON.stringify(request)).pipe(
       map((data) => {
         return data;

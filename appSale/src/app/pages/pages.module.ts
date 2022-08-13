@@ -2,6 +2,10 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule,} from '@angular/material/form-field';
+import {MatInputModule,} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 
@@ -21,7 +25,11 @@ const materialModules = [
   MatIconModule,
   MatFormFieldModule,
   MatInputModule, */
-  MatDialogModule
+  MatDialogModule,
+  MatGridListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule
 ];
 
 @NgModule({

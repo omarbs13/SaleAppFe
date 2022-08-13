@@ -26,6 +26,7 @@ export class ProviderComponent implements OnInit {
   }
 
   delete(id: number) {
+    console.log(id);
     Swal.fire({
       title: 'Quieres eliminar este proveedor?',
       showCancelButton: true,
@@ -47,7 +48,7 @@ export class ProviderComponent implements OnInit {
 
   open(id: number) {
     const dialogRef = this.dialog.open(ProviderModalComponent, {
-      width: '450px',
+      width: '550px',
       data: { success: false, id: id },
     });
 

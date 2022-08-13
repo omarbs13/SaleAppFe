@@ -26,3 +26,13 @@ export interface ProviderModel {
   zipCode: string;
   phone: string;
 }
+
+
+export interface StateModel {
+  stateId:number
+  stateName: string;
+}
+export interface CityModel {
+  cityId:number
+  cityName: string;
+}
