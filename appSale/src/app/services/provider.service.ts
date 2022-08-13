@@ -35,7 +35,7 @@ export class ProviderService {
   }
 
   geProvider(id: number): Observable<ProviderModel> {
-    return this.methodsHttp.httpGetById(ApiProviderGet, id).pipe(
+    return this.methodsHttp.httpGetById(ApiProviderGet, id,'id').pipe(
       map((response) => {
         return response.data;
       })

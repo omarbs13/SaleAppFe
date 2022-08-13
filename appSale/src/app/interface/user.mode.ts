@@ -49,3 +49,15 @@ export interface CityModel {
   cityId:number
   cityName: string;
 }
+
+export interface SubsidiaryModel {
+  subsidiaryId:number
+  subsidiaryName: string;
+  manager : number;
+  companyId:number;
+  street: string;  
+  state: string;
+  city: string;
+  zipCode: string;
+  phone: string;
+}

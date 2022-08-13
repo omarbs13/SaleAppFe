@@ -6,6 +6,7 @@ import { UserComponent } from './user/user.component';
 import { CustomerComponent } from './customer/customer.component';
 import { SaleComponent } from './sale/sale.component';
 import { ProviderComponent } from "./prov/provider.component";
+import { SubsidiaryComponent } from './company/subsidiary/subsidiary.component';
 
 const routes: Routes = [
     {
@@ -20,6 +21,7 @@ const routes: Routes = [
         { path: 'provider', component: ProviderComponent},
         { path: 'products', component: ProviderComponent},
         { path: 'order', component: ProviderComponent},
+        { path: 'subsidiary', component: SubsidiaryComponent},
       ],
     },
   ];

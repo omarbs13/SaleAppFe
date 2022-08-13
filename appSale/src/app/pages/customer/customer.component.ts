@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
 import { CustomerModel } from 'src/app/interface/user.mode';
 import Swal from 'sweetalert2';
-import * as FileSaver from 'file-saver';
 import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-customer',
@@ -18,7 +18,8 @@ export class CustomerComponent implements OnInit {
   customers: CustomerModel[] = [];
   constructor(
     public dialog: MatDialog,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private util: CommonService
   ) {
     this.customers = [];
   }
@@ -28,7 +29,6 @@ export class CustomerComponent implements OnInit {
   }
 
   delete(id: number) {
-    console.log(id);
     Swal.fire({
       title: 'Quieres eliminar este cliente?',
       showCancelButton: true,
@@ -69,28 +69,7 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  exportExcel() {
-    import('xlsx').then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(this.customers);
-      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
-      const excelBuffer: any = xlsx.write(workbook, {
-        bookType: 'xlsx',
-        type: 'array',
-      });
-      this.saveAsExcelFile(excelBuffer, 'clientes');
-    });
-  }
-
-  saveAsExcelFile(buffer: any, fileName: string): void {
-    let EXCEL_TYPE =
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    let EXCEL_EXTENSION = '.xlsx';
-    const data: Blob = new Blob([buffer], {
-      type: EXCEL_TYPE,
-    });
-    FileSaver.saveAs(
-      data,
-      fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
-    );
+  exportExcel() {    
+    this.util.exportExcel('clientes', this.customers);
   }
 }

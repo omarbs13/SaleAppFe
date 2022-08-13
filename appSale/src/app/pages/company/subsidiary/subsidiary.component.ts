@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
+import { SubsidiaryModel } from 'src/app/interface/user.mode';
 import Swal from 'sweetalert2';
-import { ProviderModel } from 'src/app/interface/user.mode';
-import { ProviderModalComponent } from './provider-modal/provider-modal.component';
-import { ProviderService } from '../../services/provider.service';
+import { SubsidiaryModalComponent } from './subsidiary-modal/subsidiary-modal.component';
+import { SubsidiaryService } from 'src/app/services/subsidiary.service';
 import { CommonService } from 'src/app/services/common.service';
+
 @Component({
-  selector: 'app-provider',
-  templateUrl: './provider.component.html',
+  selector: 'app-subsidiary',
+  templateUrl: './subsidiary.component.html',
   styles: [],
 })
-export class ProviderComponent implements OnInit {
+export class SubsidiaryComponent implements OnInit {
   success: boolean = false;
-  providers: ProviderModel[] = [];
+  subsidiaries: SubsidiaryModel[] = [];
   constructor(
     public dialog: MatDialog,
-    private providerService: ProviderService,
+    private subsidiaryService: SubsidiaryService,
     private util: CommonService
   ) {
-    this.providers = [];
+    this.subsidiaries = [];
   }
 
   ngOnInit(): void {
@@ -28,14 +29,14 @@ export class ProviderComponent implements OnInit {
 
   delete(id: number) {
     Swal.fire({
-      title: 'Quieres eliminar este proveedor?',
+      title: 'Quieres eliminar esta sucursal?',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.providerService.deletetProvider(id).subscribe((res) => {
-          if (res.providerCustomerId > 0) {
+        this.subsidiaryService.deletetSubsidiary(id).subscribe((res) => {
+          if (res.subsidiaryId > 0) {
             this.getProviders();
             Swal.fire('Eliminado!', '', 'success');
           } else {
@@ -47,7 +48,7 @@ export class ProviderComponent implements OnInit {
   }
 
   open(id: number) {
-    const dialogRef = this.dialog.open(ProviderModalComponent, {
+    const dialogRef = this.dialog.open(SubsidiaryModalComponent, {
       width: '550px',
       data: { success: false, id: id },
     });
@@ -62,12 +63,12 @@ export class ProviderComponent implements OnInit {
   }
 
   getProviders() {
-    this.providerService.getAllProviders().subscribe((data) => {
-      this.providers = data;
+    this.subsidiaryService.getAllSubsidiaries().subscribe((data) => {
+      this.subsidiaries = data;
     });
   }
 
-  exportExcel() {    
-    this.util.exportExcel('proveedores', this.providers);
+  exportExcel() {
+    this.util.exportExcel('sucursales', this.subsidiaries);
   }
 }

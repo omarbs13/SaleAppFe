@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { UserModalComponent } from './user-modal/user-modal.component';
 import { UserService } from '../../services/user.service';
 import { UserModel } from 'src/app/interface/user.mode';
-import * as FileSaver from 'file-saver';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-user',
@@ -15,7 +15,7 @@ import * as FileSaver from 'file-saver';
 export class UserComponent implements OnInit {
   success: boolean = false;
   users: UserModel[] = [];
-  constructor(public dialog: MatDialog, private userService: UserService) {
+  constructor(public dialog: MatDialog, private userService: UserService, private util: CommonService) {
     this.users = [];
   }
 
@@ -64,28 +64,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  exportExcel() {
-    import('xlsx').then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(this.users);
-      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
-      const excelBuffer: any = xlsx.write(workbook, {
-        bookType: 'xlsx',
-        type: 'array',
-      });
-      this.saveAsExcelFile(excelBuffer, 'usuarios');
-    });
-  }
-
-  saveAsExcelFile(buffer: any, fileName: string): void {
-    let EXCEL_TYPE =
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    let EXCEL_EXTENSION = '.xlsx';
-    const data: Blob = new Blob([buffer], {
-      type: EXCEL_TYPE,
-    });
-    FileSaver.saveAs(
-      data,
-      fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
-    );
+  exportExcel() {    
+    this.util.exportExcel('usuarios', this.users);
   }
 }

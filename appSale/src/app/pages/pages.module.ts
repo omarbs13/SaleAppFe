@@ -20,6 +20,9 @@ import { UserModalComponent } from './user/user-modal/user-modal.component';
 import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
 import { ProviderModalComponent } from './prov/provider-modal/provider-modal.component';
 import { CustomerModalComponent } from './customer/customer-modal/customer-modal.component';
+import { CompanyComponent } from './company/company.component';
+import { SubsidiaryComponent } from './company/subsidiary/subsidiary.component';
+import { SubsidiaryModalComponent } from './company/subsidiary/subsidiary-modal/subsidiary-modal.component';
 
 const materialModules = [
 /*   MatButtonModule,
@@ -44,6 +47,9 @@ const materialModules = [
     UserModalComponent,
     ProviderModalComponent,
     CustomerModalComponent,
+    CompanyComponent,
+    SubsidiaryComponent,
+    SubsidiaryModalComponent,
   ],
   imports: [CommonModule, RouterModule,materialModules,FormsModule,ReactiveFormsModule,TableModule],
   exports: [

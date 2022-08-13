@@ -51,7 +51,7 @@ export class UserService {
   }
 
   getUser(id: number): Observable<UserModelUpd> {
-    return this.methodsHttp.httpGetById(ApiUserGet, id).pipe(
+    return this.methodsHttp.httpGetById(ApiUserGet, id,'id').pipe(
       map((response) => {
         return response.data;
       })

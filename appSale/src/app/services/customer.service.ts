@@ -11,7 +11,6 @@ export class CustomerService {
   constructor(private methodsHttp: MethodsHttpProvider) {}
 
   postCustomer(request: any) {
-    console.log('object',request);
     return this.methodsHttp.httpPost(ApiCustomer, JSON.stringify(request)).pipe(
       map((data) => {
         return data;
@@ -36,7 +35,7 @@ export class CustomerService {
   }
 
   geCustomer(id: number): Observable<CustomerModel> {
-    return this.methodsHttp.httpGetById(ApiCustomerGet, id).pipe(
+    return this.methodsHttp.httpGetById(ApiCustomerGet, id,'id').pipe(
       map((response) => {
         return response.data;
       })

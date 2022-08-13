@@ -10,8 +10,8 @@ export class MethodsHttpProvider {
     return this.http.get<any>(url);
   }
 
-  httpGetById(url: string, id: number): Observable<any> {
-    return this.http.get<any>(`${url}?id=${id}`);
+  httpGetById(url: string, id: number,param:string): Observable<any> {
+    return this.http.get<any>(`${url}?${param}=${id}`);
   }
 
   deleteById(url: string, id: number,param:string): Observable<any> {

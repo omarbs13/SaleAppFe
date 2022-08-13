@@ -71,7 +71,6 @@ export class ProviderModalComponent implements OnInit {
       console.log(this.providerForm);
       return;
     }
-    console.log(this.providerForm);
     if (this.isNewProvider) {
       this.providerService.postProvider(this.providerForm.value).subscribe((data: any) => {
         if (data.success) {
@@ -134,7 +133,6 @@ export class ProviderModalComponent implements OnInit {
 
   getCities(idState:any){
     this.catService.getCities(idState).subscribe(data =>this.cities=data);
-    console.log(this.cities);
   }
   toUpperCase(){
     let rfcToUpper=this.rfc?.value;

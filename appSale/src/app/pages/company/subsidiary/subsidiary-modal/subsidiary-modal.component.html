@@ -1,0 +1,125 @@
+<h1 mat-dialog-title>Sucursal</h1>
+<hr>
+<div mat-dialog-content>
+  <form [formGroup]="subsidiaryForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <table style="width:100%;">
+      <tr>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="subsidiaryName">Nombre sucursal</mat-label>
+              <input matInput type="text" formControlName="subsidiaryName" maxlength="50">
+            </mat-form-field>
+            <div *ngIf="subsidiaryName?.invalid && (subsidiaryName?.dirty || subsidiaryName?.touched)" class="text-danger">
+              <div *ngIf="subsidiaryName?.errors?.['required']">
+                El nombre es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label>Supervisor</mat-label>
+              <mat-select required="" formControlName="manager">
+                <mat-option *ngFor="let item of managers" [value]="item.userId" >{{item.userName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div *ngIf="manager?.invalid && (manager?.dirty || manager?.touched)" class="text-danger">
+              <div *ngIf="manager?.errors?.['required']">
+                El supervisor es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:40%;">
+           <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="phone">Teléfono</mat-label>
+              <input matInput type="tel" formControlName="phone" maxlength="12">
+            </mat-form-field>
+
+            <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="text-danger">
+              <div *ngIf="phone?.errors?.['required']">
+                El teléfono es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="zipCode">Código postal</mat-label>
+              <input matInput type="text" formControlName="zipCode" maxlength="5">
+            </mat-form-field>
+            <div *ngIf="zipCode?.invalid && (zipCode?.dirty || zipCode?.touched)" class="text-danger">
+              <div *ngIf="zipCode?.errors?.['required']">
+                El Código postal es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label>Estado</mat-label>
+              <mat-select required="" formControlName="state" #selectList (selectionChange)="getCities($event.value)">
+                <mat-option *ngFor="let item of states" [value]="item.stateId" >{{item.stateName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="state?.invalid && (state?.dirty || state?.touched)" class="text-danger">
+              <div *ngIf="state?.errors?.['required']">
+                El estado es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label>Ciudad</mat-label>
+              <mat-select required="" formControlName="city">
+                <mat-option *ngFor="let item of cities" [value]="item.cityId" >{{item.cityName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="city?.invalid && (city?.dirty || city?.touched)" class="text-danger">
+              <div *ngIf="city?.errors?.['required']">
+                La ciudad es requerida.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>     
+      <tr>
+        <td style="width:100%;" colspan="3">
+          <div class="form-group">
+            <mat-form-field appearance="legacy" style="width:100% ;">
+              <mat-label for="street">Calle</mat-label>
+              <input matInput type="text" formControlName="street" maxlength="50">
+            </mat-form-field>
+            <div *ngIf="street?.invalid && (street?.dirty || street?.touched)" class="text-danger">
+              <div *ngIf="street?.errors?.['required']">
+                La calle es requerida.
+              </div>
+            </div>
+          </div>
+        </td>
+        
+      </tr>
+    </table>
+    <hr>
+    <div style="text-align: right;">
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+      <button class="btn btn-success" [disabled]="!subsidiaryForm.valid">Guardar</button>
+    </div>
+
+  </form>
+</div>
