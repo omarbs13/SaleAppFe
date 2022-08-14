@@ -37,13 +37,14 @@
                     <td>{{item.city}}</td>
                     <td>{{item.zipCode}}</td>
                     <td>
-                        <button class="btnDelete" title="borrar" (click)="delete(item.subsidiaryId)">
-                            <em class="mdi mdi-trash-can icon"></em>
-                            <span class="badge badge-xs rounded-circle"></span>
-                        </button> |
-                        <button class="btnEdit" title="editar" (click)="open(item.subsidiaryId)">
-                            <em class="mdi mdi-lead-pencil"></em>
-                        </button>
+                        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group me-2" role="group" aria-label="First group">                               
+                                <button type="button" class="btnEdit" title="editar"
+                                    (click)="open(item.subsidiaryId)"><em class="mdi mdi-lead-pencil"></em></button>&nbsp;&nbsp;
+                                <button type="button" class="btnDelete" title="borrar"
+                                    (click)="delete(item.subsidiaryId)"><em class="mdi mdi-trash-can icon"></em></button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </ng-template>

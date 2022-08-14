@@ -18,7 +18,6 @@ const routes: Routes = [
         { path: 'user', component: UserComponent},
         { path: 'sale', component: SaleComponent},
         { path: 'customer', component: CustomerComponent},
-        { path: 'inventory', component: UserComponent},
         { path: 'provider', component: ProviderComponent},
         { path: 'product', component: ProductComponent},
         { path: 'order', component: ProviderComponent},

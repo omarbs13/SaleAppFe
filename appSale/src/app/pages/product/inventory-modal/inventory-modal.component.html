@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>{{titleModal}}</h1>
+<hr>
+<div mat-dialog-content>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <table style="width:100%;">
+      <tr>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="minimumStock">Stock mínimo</mat-label>
+              <input matInput type="number" formControlName="minimumStock" min="1" max="100">
+            </mat-form-field>
+            <div *ngIf="minimumStock?.invalid && (minimumStock?.dirty || minimumStock?.touched)" class="text-danger">
+              <div *ngIf="minimumStock?.errors?.['required']">
+                El stock mínimo es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="currentStock">Stock</mat-label>
+              <input matInput type="number" formControlName="currentStock" min="1" max="100">
+            </mat-form-field>
+
+            <div *ngIf="currentStock?.invalid && (currentStock?.dirty || currentStock?.touched)" class="text-danger">
+              <div *ngIf="currentStock?.errors?.['required']">
+                El stock es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>   
+    </table>
+    <hr>
+    <div style="text-align: right;">
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+      <button class="btn btn-success" [disabled]="!productForm.valid">Guardar</button>
+    </div>
+
+  </form>
+</div>

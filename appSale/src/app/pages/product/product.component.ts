@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogData } from 'src/app/interface/DialogData ';
+import { DialogData, DialogInventory } from 'src/app/interface/DialogData ';
 import { ProductModel } from 'src/app/interface/user.mode';
 import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
 import { ProductModalComponent } from './product-modal/product-modal.component';
 import { ProductService } from '../../services/product.service';
+import { InventoryModalComponent } from './inventory-modal/inventory-modal.component';
 
 @Component({
   selector: 'app-product',
@@ -55,6 +56,21 @@ export class ProductComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: DialogData) => {
+      this.success = result.success;
+      if (result.success) {
+        Swal.fire('Registro guardado!', '', 'success');
+        this.getProviders();
+      }
+    });
+  }
+
+  inventory(id: number,productName:string){
+    const dialogRef = this.dialog.open(InventoryModalComponent, {
+      width: '550px',
+      data: { success: false, id: id ,productName:productName},
+    });
+
+    dialogRef.afterClosed().subscribe((result: DialogInventory) => {
       this.success = result.success;
       if (result.success) {
         Swal.fire('Registro guardado!', '', 'success');

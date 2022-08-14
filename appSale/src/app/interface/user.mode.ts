@@ -2,7 +2,7 @@ export interface UserModel {
   userId: number;
   userName: string;
   rolId: number;
-  rolName: string;  
+  rolName: string;
 }
 
 export interface UserModelUpd {
@@ -10,18 +10,18 @@ export interface UserModelUpd {
   userName: string;
   rolId: number;
   password: string;
-  status:boolean;  
-  updatePassword:boolean;
-  user:string;
+  status: boolean;
+  updatePassword: boolean;
+  user: string;
 }
 
-export interface CustomerModel  {
-  customerId:number
+export interface CustomerModel {
+  customerId: number;
   customerName: string;
-  email : string;
+  email: string;
   rfc: number;
-  Balance:number;
-  street: string;  
+  Balance: number;
+  street: string;
   state: string;
   city: string;
   zipCode: string;
@@ -29,33 +29,32 @@ export interface CustomerModel  {
 }
 
 export interface ProviderModel {
-  providerCustomerId:number
+  providerCustomerId: number;
   providerName: string;
-  email : string;
+  email: string;
   rfc: number;
-  street: string;  
+  street: string;
   state: string;
   city: string;
   zipCode: string;
   phone: string;
 }
 
-
 export interface StateModel {
-  stateId:number
+  stateId: number;
   stateName: string;
 }
 export interface CityModel {
-  cityId:number
+  cityId: number;
   cityName: string;
 }
 
 export interface SubsidiaryModel {
-  subsidiaryId:number
+  subsidiaryId: number;
   subsidiaryName: string;
-  manager : number;
-  companyId:number;
-  street: string;  
+  manager: number;
+  companyId: number;
+  street: string;
   state: string;
   city: string;
   zipCode: string;
@@ -63,11 +62,19 @@ export interface SubsidiaryModel {
 }
 
 export interface ProductModel {
-  productId:number
+  productId: number;
   productName: string;
-  description : string;
-  salePrice:number;
-  purchasePrice: number;  
+  description: string;
+  salePrice: number;
+  purchasePrice: number;
   packagePrice: number;
   providerId: number;
+}
+
+export interface InventoryModel {
+  inventoryId: number;
+  productId: string;
+  minimumStock: string;
+  currentStock: number;
+  inventoryTypeId: number;
 }

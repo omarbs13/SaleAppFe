@@ -25,6 +25,7 @@ import { SubsidiaryComponent } from './company/subsidiary/subsidiary.component';
 import { SubsidiaryModalComponent } from './company/subsidiary/subsidiary-modal/subsidiary-modal.component';
 import { ProductComponent } from './product/product.component';
 import { ProductModalComponent } from './product/product-modal/product-modal.component';
+import { InventoryModalComponent } from './product/inventory-modal/inventory-modal.component';
 
 const materialModules = [
 /*   MatButtonModule,
@@ -54,6 +55,7 @@ const materialModules = [
     SubsidiaryModalComponent,
     ProductComponent,
     ProductModalComponent,
+    InventoryModalComponent,
   ],
   imports: [CommonModule, RouterModule,materialModules,FormsModule,ReactiveFormsModule,TableModule],
   exports: [

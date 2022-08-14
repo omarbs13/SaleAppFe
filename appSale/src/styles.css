@@ -17462,6 +17462,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-size: large; color: blue;
 }
 
+.btnInventory{
+  font-size: large; color: green;
+}
+
 .tblActions{
   width:10%
 }

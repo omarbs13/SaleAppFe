@@ -40,6 +40,9 @@ export const ApiProduct = `${URL}/Product`;
 export const ApiProductGetAll = `${URL}/Product/GetAll`;
 export const ApiProductGet = `${URL}/Product/Get`;
 
+export const ApiInventory = `${URL}/Inventory`;
+export const ApiInventoryGet = `${URL}/Inventory/Get`;
+
 export const GetStates = `${URL}/Catalog/GetState`;
 export const GetCities = `${URL}/Catalog/GetCity`;
 
