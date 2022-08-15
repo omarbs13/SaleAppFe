@@ -32,12 +32,12 @@
                     <td>{{item.salePrice}}</td>
                     <td>{{item.purchasePrice}}</td>
                     <td>{{item.packagePrice}}</td>
-                    <td>{{item.providerId}}</td>
+                    <td>{{item.providerName}}</td>
                     <td>
                         <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="First group">
                                 <button type="button" class="btnInventory" title="inventarios"
-                                    (click)="inventory(item.productId,item.productName)"><em
+                                    (click)="inventory(item.productId,item.productName,item.inventory)"><em
                                         class="mdi mdi-clipboard-arrow-up-outline icon"></em></button>&nbsp;&nbsp;
                                 <button type="button" class="btnEdit" title="editar"
                                     (click)="open(item.productId)"><em class="mdi mdi-lead-pencil"></em></button>&nbsp;&nbsp;

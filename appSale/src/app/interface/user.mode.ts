@@ -19,11 +19,13 @@ export interface CustomerModel {
   customerId: number;
   customerName: string;
   email: string;
-  rfc: number;
-  Balance: number;
+  rfc: string;
+  balance: number;
   street: string;
   state: string;
   city: string;
+  stateId: number;
+  cityId: number;
   zipCode: string;
   phone: string;
 }
@@ -32,10 +34,12 @@ export interface ProviderModel {
   providerCustomerId: number;
   providerName: string;
   email: string;
-  rfc: number;
+  rfc: string;
   street: string;
   state: string;
-  city: string;
+  stateId: number;
+  cityName: string;
+  cityId:number;
   zipCode: string;
   phone: string;
 }
@@ -53,10 +57,13 @@ export interface SubsidiaryModel {
   subsidiaryId: number;
   subsidiaryName: string;
   manager: number;
+  managerName: string;
   companyId: number;
   street: string;
   state: string;
-  city: string;
+  cityName: string;
+  stateId: number;
+  cityId: number;
   zipCode: string;
   phone: string;
 }
@@ -69,6 +76,7 @@ export interface ProductModel {
   purchasePrice: number;
   packagePrice: number;
   providerId: number;
+  providerName: string;
 }
 
 export interface InventoryModel {

@@ -1,12 +1,16 @@
+import { InventoryModel } from "./user.mode";
+
 export interface DialogData {
   success: boolean;
   msg: string;
-  id:number
+  id:number,
+  stateId:number
 }
 
 export interface DialogInventory {
   success: boolean;
   msg: string;
   id:number;
-  productName:string
+  productName:string,
+  inventory:InventoryModel
 }

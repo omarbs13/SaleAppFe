@@ -25,9 +25,12 @@ export class SubsidiaryModalComponent implements OnInit {
     subsidiaryId: new FormControl(''),
     subsidiaryName: new FormControl(''),   
     manager: new FormControl(''),
+    managerName: new FormControl(''),
     street: new FormControl(''),
+    stateId: new FormControl(''),
+    cityId: new FormControl(''),
     state: new FormControl(''),
-    city: new FormControl(''),
+    cityName: new FormControl(''),
     zipCode: new FormControl(''),
     phone: new FormControl(''),
     phone2: new FormControl(''),
@@ -47,7 +50,8 @@ export class SubsidiaryModalComponent implements OnInit {
     if (!this.isNew) {
     
        this.subsidiaryService.getSubsidiary(data.id).subscribe((res) => {
-        this.getCities(res.state);
+        res.stateId=data.stateId;
+        this.getCities(res.stateId);
         this.createForm(res);
       }); 
     } else {
@@ -123,12 +127,15 @@ export class SubsidiaryModalComponent implements OnInit {
       subsidiaryName: new FormControl(subs?.subsidiaryName, Validators.required),
       manager: new FormControl(subs?.manager, Validators.required),      
       street: new FormControl(subs?.street, Validators.required),
-      state: new FormControl(subs?.state, Validators.required),
-      city: new FormControl(subs?.city),
+      stateId: new FormControl(subs?.stateId, Validators.required),
+      cityId: new FormControl(subs?.cityId),
       zipCode: new FormControl(subs?.zipCode, Validators.required),
       phone: new FormControl(subs?.phone, Validators.required),
       phone2: new FormControl('-'),
-      user: new FormControl('admin')
+      user: new FormControl('admin'),
+      state: new FormControl(''),
+      cityName: new FormControl(''),
+      managerName: new FormControl(''),
     });
   }
 

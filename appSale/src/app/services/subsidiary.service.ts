@@ -35,7 +35,7 @@ export class SubsidiaryService {
   }
 
   getSubsidiary(id: number): Observable<SubsidiaryModel> {
-    return this.methodsHttp.httpGetById(ApiSubsidiaryGet, id,'subsidiaryId').pipe(
+    return this.methodsHttp.httpGetById(ApiSubsidiaryGet, id,'id').pipe(
       map((response) => {
         return response.data;
       })

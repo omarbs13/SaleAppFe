@@ -2,9 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogInventory } from 'src/app/interface/DialogData ';
-import {
-  InventoryModel
-} from 'src/app/interface/user.mode';
+import { InventoryModel } from 'src/app/interface/user.mode';
 import { InventoryService } from '../../../services/inventory.service';
 
 @Component({
@@ -31,10 +29,10 @@ export class InventoryModalComponent implements OnInit {
   ) {
     dialogRef.disableClose = true;
     this.data.success = false;
-    this.isNew = data.id == 0;
+    this.isNew = data.inventory ==null;
     this.titleModal = data.productName;
     if (!this.isNew) {
-      this.inventoryService.get(data.id).subscribe((res) => {
+      this.inventoryService.get(data.inventory.inventoryId).subscribe((res) => {
         this.createForm(res);
       });
     } else {
@@ -71,12 +69,14 @@ export class InventoryModalComponent implements OnInit {
         });
     }
     if (!this.isNew) {
-      this.inventoryService.put(this.productForm.value).subscribe((data: any) => {
-        if (data.success) {
-          this.data.success = true;
-          this.dialogRef.close(this.data);
-        }
-      });
+      this.inventoryService
+        .put(this.productForm.value)
+        .subscribe((data: any) => {
+          if (data.success) {
+            this.data.success = true;
+            this.dialogRef.close(this.data);
+          }
+        });
     }
   }
 
@@ -89,12 +89,14 @@ export class InventoryModalComponent implements OnInit {
 
   createForm(item?: InventoryModel) {
     let id = item ? item.inventoryId : 0;
+    let type = item ? 1 : 3;
     this.productForm = new FormGroup({
       inventoryId: new FormControl(id),
       productId: new FormControl(this.data.id),
       minimumStock: new FormControl(item?.minimumStock, Validators.required),
       currentStock: new FormControl(item?.currentStock, Validators.required),
-      inventoryTypeId: new FormControl(1),
+      inventoryTypeId: new FormControl(type),
+      user: new FormControl('admin'),
     });
   }
 }

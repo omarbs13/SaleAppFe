@@ -24,6 +24,7 @@ export class ProductModalComponent implements OnInit {
     salePrice: new FormControl('id'),
     purchasePrice: new FormControl('id'),
     packagePrice: new FormControl('id'),
+    providerName: new FormControl(''),
     user: new FormControl('id'),
   });
 
@@ -116,6 +117,7 @@ export class ProductModalComponent implements OnInit {
       salePrice: new FormControl(item?.salePrice, Validators.required),
       purchasePrice: new FormControl(item?.purchasePrice, Validators.required),
       packagePrice: new FormControl(item?.packagePrice),
+      providerName: new FormControl(''),
       user: new FormControl('admin'),
     });
   }

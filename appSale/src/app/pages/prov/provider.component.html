@@ -5,7 +5,7 @@
     <div class="card-body">
         <div style=" text-align: right;">
             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-primary" (click)="open(0)">Nuevo</button>
+                <button type="button" class="btn btn-outline-primary" (click)="open(0,0)">Nuevo</button>
                 <button type="button" class="btn btn-outline-primary" (click)="exportExcel()"><em
                         class="mdi mdi-file-download-outline icon"></em>Descargar</button>
             </div>
@@ -38,7 +38,7 @@
                         <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="First group">                               
                                 <button type="button" class="btnEdit" title="editar"
-                                    (click)="open(item.providerCustomerId)"><em class="mdi mdi-lead-pencil"></em></button>&nbsp;&nbsp;
+                                    (click)="open(item.providerCustomerId,item.stateId)"><em class="mdi mdi-lead-pencil"></em></button>&nbsp;&nbsp;
                                 <button type="button" class="btnDelete" title="borrar"
                                     (click)="delete(item.providerCustomerId)"><em class="mdi mdi-trash-can icon"></em></button>
                             </div>

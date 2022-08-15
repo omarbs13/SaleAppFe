@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData, DialogInventory } from 'src/app/interface/DialogData ';
-import { ProductModel } from 'src/app/interface/user.mode';
+import { InventoryModel, ProductModel } from 'src/app/interface/user.mode';
 import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
 import { ProductModalComponent } from './product-modal/product-modal.component';
@@ -64,10 +64,10 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  inventory(id: number,productName:string){
+  inventory(id: number,productName:string,inventory:InventoryModel){
     const dialogRef = this.dialog.open(InventoryModalComponent, {
       width: '550px',
-      data: { success: false, id: id ,productName:productName},
+      data: { success: false, id ,productName,inventory},
     });
 
     dialogRef.afterClosed().subscribe((result: DialogInventory) => {

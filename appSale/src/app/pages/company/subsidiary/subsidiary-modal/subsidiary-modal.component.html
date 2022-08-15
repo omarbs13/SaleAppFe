@@ -70,7 +70,7 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Estado</mat-label>
-              <mat-select required="" formControlName="state" #selectList (selectionChange)="getCities($event.value)">
+              <mat-select required="" formControlName="stateId" #selectList (selectionChange)="getCities($event.value)">
                 <mat-option *ngFor="let item of states" [value]="item.stateId" >{{item.stateName}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -86,7 +86,7 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Ciudad</mat-label>
-              <mat-select required="" formControlName="city">
+              <mat-select required="" formControlName="cityId">
                 <mat-option *ngFor="let item of cities" [value]="item.cityId" >{{item.cityName}}</mat-option>
               </mat-select>
             </mat-form-field>

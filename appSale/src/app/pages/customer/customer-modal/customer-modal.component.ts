@@ -2,7 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
-import { CityModel, CustomerModel, StateModel } from 'src/app/interface/user.mode';
+import {
+  CityModel,
+  CustomerModel,
+  StateModel,
+} from 'src/app/interface/user.mode';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { RfcValid } from 'src/environments/environment';
 import { CustomerService } from '../../../services/customer.service';
@@ -10,8 +14,7 @@ import { CustomerService } from '../../../services/customer.service';
 @Component({
   selector: 'app-customer-modal',
   templateUrl: './customer-modal.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class CustomerModalComponent implements OnInit {
   titleModal: string = '';
@@ -19,19 +22,21 @@ export class CustomerModalComponent implements OnInit {
   selectedRol: number = 2;
   states: StateModel[] = [];
   cities: CityModel[] = [];
- 
+
   customerForm: FormGroup = new FormGroup({
     customerId: new FormControl(0),
     customerName: new FormControl(''),
     email: new FormControl(''),
     rfc: new FormControl(''),
     street: new FormControl(''),
+    stateId: new FormControl(''),
     state: new FormControl(''),
-    city: new FormControl(''),
+    cityId: new FormControl(''),
+    cityName: new FormControl(''),
     zipCode: new FormControl(''),
     phone: new FormControl(''),
     phone2: new FormControl(''),
-    balance:new FormControl('')
+    balance: new FormControl(''),
   });
 
   constructor(
@@ -43,11 +48,12 @@ export class CustomerModalComponent implements OnInit {
     dialogRef.disableClose = true;
     this.data.success = false;
     this.isNewCustomer = data.id == 0;
-    if (!this.isNewCustomer) {    
-       this.customerService.geCustomer(data.id).subscribe((res) => {
-        this.getCities(res.state);
+    if (!this.isNewCustomer) {
+      this.customerService.geCustomer(data.id).subscribe((res) => {      
+        res.stateId = this.data.stateId;
+        this.getCities(res.stateId);
         this.createForm(res);
-      }); 
+      });
     } else {
       this.createForm();
     }
@@ -59,7 +65,7 @@ export class CustomerModalComponent implements OnInit {
         this.onCancel();
       }
     });
-    this.catService.getStates().subscribe(data =>this.states=data);
+    this.catService.getStates().subscribe((data) => (this.states = data));
   }
 
   onCancel(): void {
@@ -73,21 +79,25 @@ export class CustomerModalComponent implements OnInit {
       return;
     }
     if (this.isNewCustomer) {
-      this.customerService.postCustomer(this.customerForm.value).subscribe((data: any) => {
-        if (data.success) {
-          this.data.success = true;
-          this.dialogRef.close(this.data);
-        }
-      });
+      this.customerService
+        .postCustomer(this.customerForm.value)
+        .subscribe((data: any) => {
+          if (data.success) {
+            this.data.success = true;
+            this.dialogRef.close(this.data);
+          }
+        });
     }
-     if (!this.isNewCustomer) {
-      this.customerService.putCustomer(this.customerForm.value).subscribe((data: any) => {
-        if (data.success) {
-          this.data.success = true;
-          this.dialogRef.close(this.data);
-        }
-      });
-    } 
+    if (!this.isNewCustomer) {
+      this.customerService
+        .putCustomer(this.customerForm.value)
+        .subscribe((data: any) => {
+          if (data.success) {
+            this.data.success = true;
+            this.dialogRef.close(this.data);
+          }
+        });
+    }
   }
 
   get customerName() {
@@ -115,29 +125,41 @@ export class CustomerModalComponent implements OnInit {
     return this.customerForm.get('zipCode');
   }
 
-  
-  createForm(customer?: CustomerModel) {   
-    let id=customer? customer.customerId:0;
+  createForm(customer?: CustomerModel) {
+    let id = customer ? customer.customerId : 0;
     this.customerForm = new FormGroup({
       customerId: new FormControl(id),
-      customerName: new FormControl(customer?.customerName, Validators.required),
-      email: new FormControl(customer?.email, [Validators.required, Validators.email]),
-      rfc: new FormControl(customer?.rfc, [Validators.required,Validators.pattern(RfcValid)]),
+      customerName: new FormControl(
+        customer?.customerName,
+        Validators.required
+      ),
+      email: new FormControl(customer?.email, [
+        Validators.required,
+        Validators.email,
+      ]),
+      rfc: new FormControl(customer?.rfc, [
+        Validators.required,
+        Validators.pattern(RfcValid),
+      ]),
       street: new FormControl(customer?.street, Validators.required),
-      state: new FormControl(customer?.state, Validators.required),
-      city: new FormControl(customer?.city),
+      stateId: new FormControl(customer?.stateId, Validators.required),
+      cityId: new FormControl(customer?.cityId),
       zipCode: new FormControl(customer?.zipCode, Validators.required),
       phone: new FormControl(customer?.phone, Validators.required),
       phone2: new FormControl('-'),
-      balance:new FormControl(customer?.Balance)
+      balance: new FormControl(customer?.balance),
+      state: new FormControl(''),
+      cityName: new FormControl(''),
     });
   }
 
-  getCities(idState:any){
-    this.catService.getCities(idState).subscribe(data =>this.cities=data);
+  getCities(idState: any) {
+    this.catService
+      .getCities(idState)
+      .subscribe((data) => (this.cities = data));
   }
-  toUpperCase(){
-    let rfcToUpper=this.rfc?.value;
+  toUpperCase() {
+    let rfcToUpper = this.rfc?.value;
     this.rfc?.setValue(rfcToUpper.toString().toUpperCase());
   }
 }

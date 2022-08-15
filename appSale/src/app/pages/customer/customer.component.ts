@@ -48,10 +48,10 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  open(id: number) {
+  open(id: number,stateId:number) {
     const dialogRef = this.dialog.open(CustomerModalComponent, {
       width: '550px',
-      data: { success: false, id: id },
+      data: { success: false, id,stateId },
     });
 
     dialogRef.afterClosed().subscribe((result: DialogData) => {
