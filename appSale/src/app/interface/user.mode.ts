@@ -39,7 +39,7 @@ export interface ProviderModel {
   state: string;
   stateId: number;
   cityName: string;
-  cityId:number;
+  cityId: number;
   zipCode: string;
   phone: string;
 }
@@ -85,4 +85,23 @@ export interface InventoryModel {
   minimumStock: string;
   currentStock: number;
   inventoryTypeId: number;
+}
+
+export interface PackageModel {
+  packageId: number;
+  packageName: string;
+  description: string;
+  price: number;
+  typePackage: string;
+  typePackageId: number;
+  total: number;
+  products: ProductPackageModel;
+}
+
+export interface ProductPackageModel {
+  productId: number;
+  price: number;
+  productName: string;
+  description: string;
+
 }

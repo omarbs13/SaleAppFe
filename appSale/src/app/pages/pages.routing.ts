@@ -8,6 +8,7 @@ import { SaleComponent } from './sale/sale.component';
 import { ProviderComponent } from "./prov/provider.component";
 import { SubsidiaryComponent } from './company/subsidiary/subsidiary.component';
 import { ProductComponent } from './product/product.component';
+import { PackageComponent } from './package/package.component';
 
 const routes: Routes = [
     {
@@ -22,6 +23,7 @@ const routes: Routes = [
         { path: 'product', component: ProductComponent},
         { path: 'order', component: ProviderComponent},
         { path: 'subsidiary', component: SubsidiaryComponent},
+        { path: 'package', component: PackageComponent},
       ],
     },
   ];
