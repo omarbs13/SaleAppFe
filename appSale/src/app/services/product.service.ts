@@ -1,6 +1,7 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ApiProduct, ApiProductGet, ApiProductGetAll } from 'src/environments/environment';
+import { ApiProduct, ApiProductFilter, ApiProductGet, ApiProductGetAll } from 'src/environments/environment';
 import { ProductModel } from '../interface/user.mode';
 import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
 
@@ -36,6 +37,17 @@ export class ProductService {
 
   get(id: number): Observable<ProductModel> {
     return this.methodsHttp.httpGetById(ApiProductGet, id,'id').pipe(
+      map((response) => {
+        return response.data;
+      })
+    );
+  }
+
+  filter(filter:number, text:string): Observable<ProductModel[]> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("filter",filter);
+    queryParams = queryParams.append("term",text);
+    return this.methodsHttp.httpGet(ApiProductFilter, queryParams).pipe(
       map((response) => {
         return response.data;
       })

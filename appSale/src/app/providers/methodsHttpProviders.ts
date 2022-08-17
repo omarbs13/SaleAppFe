@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -6,15 +6,22 @@ import { Observable } from 'rxjs/internal/Observable';
 export class MethodsHttpProvider {
   constructor(public http: HttpClient) {}
 
-  httpGet(url: string): Observable<any> {
+/*   httpGet(url: string): Observable<any> {
     return this.http.get<any>(url);
+  } */
+
+  httpGet(url: string, queryParams?: HttpParams): Observable<any> {
+    //if (queryParams?.toString() = !null) {
+      return this.http.get<any>(url, { params: queryParams });
+    //}
+    //return this.http.get<any>(url);
   }
 
-  httpGetById(url: string, id: number,param:string): Observable<any> {
+  httpGetById(url: string, id: number, param: string): Observable<any> {
     return this.http.get<any>(`${url}?${param}=${id}`);
   }
 
-  deleteById(url: string, id: number,param:string): Observable<any> {
+  deleteById(url: string, id: number, param: string): Observable<any> {
     return this.http.delete<any>(`${url}?${param}=${id}`);
   }
 

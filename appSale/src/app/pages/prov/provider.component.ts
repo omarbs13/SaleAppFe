@@ -35,7 +35,7 @@ export class ProviderComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.providerService.deletetProvider(id).subscribe((res) => {
-          if (res.providerCustomerId > 0) {
+          if (res.providerId > 0) {
             this.getProviders();
             Swal.fire('Eliminado!', '', 'success');
           } else {

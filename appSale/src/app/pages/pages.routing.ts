@@ -9,6 +9,7 @@ import { ProviderComponent } from "./prov/provider.component";
 import { SubsidiaryComponent } from './company/subsidiary/subsidiary.component';
 import { ProductComponent } from './product/product.component';
 import { PackageComponent } from './package/package.component';
+import { FrmPackageComponent } from './package/frm-package/frm-package.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,7 @@ const routes: Routes = [
         { path: 'order', component: ProviderComponent},
         { path: 'subsidiary', component: SubsidiaryComponent},
         { path: 'package', component: PackageComponent},
+        {path:'frmPackage/:id',component:FrmPackageComponent}
       ],
     },
   ];

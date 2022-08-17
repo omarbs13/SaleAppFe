@@ -31,7 +31,7 @@ export interface CustomerModel {
 }
 
 export interface ProviderModel {
-  providerCustomerId: number;
+  providerId: number;
   providerName: string;
   email: string;
   rfc: string;

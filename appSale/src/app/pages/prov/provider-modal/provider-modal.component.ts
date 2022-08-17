@@ -24,7 +24,7 @@ export class ProviderModalComponent implements OnInit {
   cities: CityModel[] = [];
 
   providerForm: FormGroup = new FormGroup({
-    providerCustomerId: new FormControl(''),
+    providerId: new FormControl(''),
     providerName: new FormControl(''),
     email: new FormControl(''),
     rfc: new FormControl(''),
@@ -125,9 +125,9 @@ export class ProviderModalComponent implements OnInit {
   }
 
   createForm(provider?: ProviderModel) {
-    let id = provider ? provider.providerCustomerId : 0;
+    let id = provider ? provider.providerId : 0;
     this.providerForm = new FormGroup({
-      providerCustomerId: new FormControl(id),
+      providerId: new FormControl(id),
       providerName: new FormControl(
         provider?.providerName,
         Validators.required

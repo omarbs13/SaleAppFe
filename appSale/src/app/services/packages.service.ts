@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { ApiProvider, ApiProviderGet, ApiProviderGetAll } from 'src/environments/environment';
-import {  ProviderModel } from '../interface/user.mode';
+import { Observable } from 'rxjs/internal/Observable';
+import { PackageModel } from '../interface/user.mode';
 import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
+import { map } from 'rxjs';
+import { ApiPackageGetAll } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProviderService {
+export class PackagesService {
   constructor(private methodsHttp: MethodsHttpProvider) {}
 
-  postProvider(request: any) {
-    
+ /*  postProvider(request: any) {
     return this.methodsHttp.httpPost(ApiProvider, JSON.stringify(request)).pipe(
       map((data) => {
         return data;
@@ -20,23 +20,21 @@ export class ProviderService {
   }
 
   putProvider(request: ProviderModel) {   
-    console.log(request);
     return this.methodsHttp.httpPut(ApiProvider, JSON.stringify(request)).pipe(
       map((data) => {
         return data;
       })
     );
-  }
+  } */
 
-  getAllProviders(): Observable<ProviderModel[]> {
-    return this.methodsHttp.httpGet(ApiProviderGetAll).pipe(
+  getAllPackages(): Observable<PackageModel[]> {
+    return this.methodsHttp.httpGet(ApiPackageGetAll).pipe(
       map((response) => {
         return response.data;
       })
     );
-  }
-
-  geProvider(id: number): Observable<ProviderModel> {
+  }  
+  /* geProvider(id: number): Observable<ProviderModel> {
     return this.methodsHttp.httpGetById(ApiProviderGet, id,'id').pipe(
       map((response) => {
         return response.data;
@@ -50,5 +48,5 @@ export class ProviderService {
         return response.data;
       })
     );
-  }
+  } */
 }

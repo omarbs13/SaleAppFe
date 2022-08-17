@@ -23,7 +23,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Proveedor</mat-label>
               <mat-select required="" formControlName="providerId">
-                <mat-option *ngFor="let item of providers" [value]="item.providerCustomerId">{{item.providerName}}
+                <mat-option *ngFor="let item of providers" [value]="item.providerId">{{item.providerName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -47,6 +47,35 @@
             <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="text-danger">
               <div *ngIf="description?.errors?.['required']">
                 La descripción es requerida.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="salePrice">Código</mat-label>
+              <input matInput type="number" formControlName="salePrice" min="1" max="1000000">
+            </mat-form-field>
+            <div *ngIf="salePrice?.invalid && (salePrice?.dirty || salePrice?.touched)" class="text-danger">
+              <div *ngIf="salePrice?.errors?.['required']">
+                El precio de venta es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="purchasePrice">Tipo producto</mat-label>
+              <input matInput type="number" formControlName="purchasePrice" min="1" max="1000000">
+            </mat-form-field>
+            <div *ngIf="purchasePrice?.invalid && (purchasePrice?.dirty || purchasePrice?.touched)" class="text-danger">
+              <div *ngIf="purchasePrice?.errors?.['required']">
+                El precio de compra es requerido.
               </div>
             </div>
           </div>

@@ -39,9 +39,12 @@ export const ApiSubsidiaryGet = `${URL}/Company/GetSubsidiary`;
 export const ApiProduct = `${URL}/Product`;
 export const ApiProductGetAll = `${URL}/Product/GetAll`;
 export const ApiProductGet = `${URL}/Product/Get`;
+export const ApiProductFilter = `${URL}/Product/Filter`;
 
 export const ApiInventory = `${URL}/Inventory`;
 export const ApiInventoryGet = `${URL}/Inventory/Get`;
+
+export const ApiPackageGetAll = `${URL}/Package/GetAll`;
 
 export const GetStates = `${URL}/Catalog/GetState`;
 export const GetCities = `${URL}/Catalog/GetCity`;
