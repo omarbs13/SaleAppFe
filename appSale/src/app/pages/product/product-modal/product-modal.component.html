@@ -1,0 +1,132 @@
+<h1 mat-dialog-title>Producto</h1>
+<hr>
+<div mat-dialog-content>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <table style="width:100%;">
+      <tr>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="productName">Nombre producto</mat-label>
+              <input matInput type="text" formControlName="productName" maxlength="50">
+            </mat-form-field>
+            <div *ngIf="productName?.invalid && (productName?.dirty || productName?.touched)" class="text-danger">
+              <div *ngIf="productName?.errors?.['required']">
+                El nombre es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label>Proveedor</mat-label>
+              <mat-select required="" formControlName="providerId">
+                <mat-option *ngFor="let item of providers" [value]="item.providerId">{{item.providerName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div *ngIf="providerId?.invalid && (providerId?.dirty || providerId?.touched)" class="text-danger">
+              <div *ngIf="providerId?.errors?.['required']">
+                El proveedor es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:100%;" colspan="3">
+          <div class="form-group">
+            <mat-form-field appearance="legacy" style="width:100% ;">
+              <mat-label for="description">Descripción</mat-label>
+              <input matInput type="tel" formControlName="description" maxlength="100">
+            </mat-form-field>
+
+            <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="text-danger">
+              <div *ngIf="description?.errors?.['required']">
+                La descripción es requerida.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="salePrice">Código</mat-label>
+              <input matInput type="number" formControlName="salePrice" min="1" max="1000000">
+            </mat-form-field>
+            <div *ngIf="salePrice?.invalid && (salePrice?.dirty || salePrice?.touched)" class="text-danger">
+              <div *ngIf="salePrice?.errors?.['required']">
+                El precio de venta es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="purchasePrice">Tipo producto</mat-label>
+              <input matInput type="number" formControlName="purchasePrice" min="1" max="1000000">
+            </mat-form-field>
+            <div *ngIf="purchasePrice?.invalid && (purchasePrice?.dirty || purchasePrice?.touched)" class="text-danger">
+              <div *ngIf="purchasePrice?.errors?.['required']">
+                El precio de compra es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="salePrice">Precio venta</mat-label>
+              <input matInput type="number" formControlName="salePrice" min="1" max="1000000">
+            </mat-form-field>
+            <div *ngIf="salePrice?.invalid && (salePrice?.dirty || salePrice?.touched)" class="text-danger">
+              <div *ngIf="salePrice?.errors?.['required']">
+                El precio de venta es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+        <td style="width:10%;"></td>
+        <td style="width:40%;">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="purchasePrice">Precio compra</mat-label>
+              <input matInput type="number" formControlName="purchasePrice" min="1" max="1000000">
+            </mat-form-field>
+            <div *ngIf="purchasePrice?.invalid && (purchasePrice?.dirty || purchasePrice?.touched)" class="text-danger">
+              <div *ngIf="purchasePrice?.errors?.['required']">
+                El precio de compra es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:100%;" colspan="3">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label for="packagePrice">Precio paquete</mat-label>
+              <input matInput type="number" formControlName="packagePrice" min="0" max="1000000">
+            </mat-form-field>
+          </div>
+        </td>
+
+      </tr>
+    </table>
+    <hr>
+    <div style="text-align: right;">
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+      <button class="btn btn-success" [disabled]="!productForm.valid">Guardar</button>
+    </div>
+
+  </form>
+</div>

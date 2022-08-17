@@ -4,8 +4,12 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { PagesComponent } from "./pages.component";
 import { UserComponent } from './user/user.component';
 import { CustomerComponent } from './customer/customer.component';
-import { ProviderComponent } from './provider/provider.component';
 import { SaleComponent } from './sale/sale.component';
+import { ProviderComponent } from "./prov/provider.component";
+import { SubsidiaryComponent } from './company/subsidiary/subsidiary.component';
+import { ProductComponent } from './product/product.component';
+import { PackageComponent } from './package/package.component';
+import { FrmPackageComponent } from './package/frm-package/frm-package.component';
 
 const routes: Routes = [
     {
@@ -16,9 +20,12 @@ const routes: Routes = [
         { path: 'user', component: UserComponent},
         { path: 'sale', component: SaleComponent},
         { path: 'customer', component: CustomerComponent},
-        { path: 'inventory', component: UserComponent},
         { path: 'provider', component: ProviderComponent},
+        { path: 'product', component: ProductComponent},
         { path: 'order', component: ProviderComponent},
+        { path: 'subsidiary', component: SubsidiaryComponent},
+        { path: 'package', component: PackageComponent},
+        {path:'frmPackage/:id',component:FrmPackageComponent}
       ],
     },
   ];

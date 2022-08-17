@@ -575,8 +575,8 @@
    flex-wrap: wrap;
    margin-right: -15px;
    margin-left: -15px;   
-   min-height: 400px;
- }
+   min-height: 60px; 
+   }
  
  .no-gutters {
    margin-right: 0;
@@ -17446,3 +17446,26 @@
  
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/*==== Estilos oceron ======*/
+/*Para el boton de excel descarga*/
+.dwnExcel{
+  color:green;
+}
+
+.btnDelete{
+  font-size: large; color: red;
+}
+
+.btnEdit{
+  font-size: large; color: blue;
+}
+
+.btnInventory{
+  font-size: large; color: green;
+}
+
+.tblActions{
+  width:10%
+}

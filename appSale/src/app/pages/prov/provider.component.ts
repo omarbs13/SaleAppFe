@@ -1,44 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
-import { CustomerModel } from 'src/app/interface/user.mode';
 import Swal from 'sweetalert2';
-import { CustomerService } from 'src/app/services/customer.service';
-import { CustomerModalComponent } from './customer-modal/customer-modal.component';
+import { ProviderModel } from 'src/app/interface/user.mode';
+import { ProviderModalComponent } from './provider-modal/provider-modal.component';
+import { ProviderService } from '../../services/provider.service';
 import { CommonService } from 'src/app/services/common.service';
-
 @Component({
-  selector: 'app-customer',
-  templateUrl: './customer.component.html',
-  styles: [
-  ]
+  selector: 'app-provider',
+  templateUrl: './provider.component.html',
+  styles: [],
 })
-export class CustomerComponent implements OnInit {
+export class ProviderComponent implements OnInit {
   success: boolean = false;
-  customers: CustomerModel[] = [];
+  providers: ProviderModel[] = [];
   constructor(
     public dialog: MatDialog,
-    private customerService: CustomerService,
+    private providerService: ProviderService,
     private util: CommonService
   ) {
-    this.customers = [];
+    this.providers = [];
   }
 
   ngOnInit(): void {
-    this.getCustomers();
+    this.getProviders();
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Quieres eliminar este cliente?',
+      title: 'Quieres eliminar este proveedor?',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.customerService.deletetCustomer(id).subscribe((res) => {
-          if (res.customerId > 0) {
-            this.getCustomers();
+        this.providerService.deletetProvider(id).subscribe((res) => {
+          if (res.providerId > 0) {
+            this.getProviders();
             Swal.fire('Eliminado!', '', 'success');
           } else {
             Swal.fire('Ocurrio un error!', '', 'warning');
@@ -49,27 +47,27 @@ export class CustomerComponent implements OnInit {
   }
 
   open(id: number,stateId:number) {
-    const dialogRef = this.dialog.open(CustomerModalComponent, {
+    const dialogRef = this.dialog.open(ProviderModalComponent, {
       width: '550px',
-      data: { success: false, id,stateId },
+      data: { success: false, id ,stateId},
     });
 
     dialogRef.afterClosed().subscribe((result: DialogData) => {
       this.success = result.success;
       if (result.success) {
         Swal.fire('Registro guardado!', '', 'success');
-        this.getCustomers();
+        this.getProviders();
       }
     });
   }
 
-  getCustomers() {
-    this.customerService.getAllCustomers().subscribe((data) => {
-      this.customers = data;
+  getProviders() {
+    this.providerService.getAllProviders().subscribe((data) => {
+      this.providers = data;
     });
   }
 
   exportExcel() {    
-    this.util.exportExcel('clientes', this.customers);
+    this.util.exportExcel('proveedores', this.providers);
   }
 }

@@ -1,0 +1,215 @@
+<div class="card text-center">
+    <div class="card-header">
+        <h2 class="card-title">Paquetes</h2>
+    </div>
+    <div class="card-body ">
+        <div style=" text-align: left;">
+            <form [formGroup]="packageForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Datos del paquete</a>
+                    </li>
+                </ul>
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Nombre del paquete</label>
+                            <input type="email" formControlName="packageName" class="form-control"
+                                maxlength="50" >
+
+                            <div *ngIf="packageName?.invalid && (packageName?.dirty || packageName?.touched)"
+                                class="text-danger">
+                                <div *ngIf="packageName?.errors?.['required']">
+                                    El nombre es requerido.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="exampleFormControlInput1" class="form-label">Precio paquete</label>
+                        <div class="input-group mb-3">
+
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control"  formControlName="price" aria-label="Amount (to the nearest dollar)" min="1" max="9999">
+                            <span class="input-group-text">.00</span>
+                            <div *ngIf="price?.invalid && (price?.dirty || price?.touched)"
+                            class="text-danger">
+                            <div *ngIf="price?.errors?.['required']">
+                                El nombre es requerido.
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="exampleFormControlInput1" class="form-label">Tipo paquete</label>
+                        <select class="form-select"  formControlName="typePackageId" aria-label="Default select example">
+                            <option value="1">Platillo especial</option>
+                            <option value="2">Platillo del día</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Descripción</label>
+                            <input type="email" class="form-control"  formControlName="description" id="exampleFormControlInput1">
+                            <div *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description?.errors?.['required']">
+                                La descripción es requerida.
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Productos del paquete</a>
+                    </li>
+                </ul>
+                <br>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="input-group">
+
+                            <div class="input-group-btn search-panel dropdown user-menu">
+                                <button type="button" style="height:42px ;" class="btn btn-default dropdown-toggle"
+                                    data-toggle="dropdown">
+                                    <span id="search_concept">Filtrar por</span> <span class="caret"></span>
+                                </button>
+
+                                <ul class="dropdown-menu" role="menu" (change)="filter($event.target)">
+                                    <li>
+                                        <div class="form-check px-5">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="1" checked>
+                                            <label class="text-black-50" for="flexRadioDefault2">
+                                                Producto
+                                            </label>
+                                        </div>
+                                        <div class="form-check px-5">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="2" checked>
+                                            <label class="text-black-50" for="flexRadioDefault2">
+                                                Tipo producto
+                                            </label>
+                                        </div>
+                                        <div class="form-check px-5">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="3" checked>
+                                            <label class="text-black-50" for="flexRadioDefault2">
+                                                Código
+                                            </label>
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                            <input type="hidden" name="search_param" value="all" id="search_param">
+                            <input type="text" #search class="form-control" name="x" placeholder="...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" (click)="searchProduct( search.value)"  style="height:42px ;" type="button"> <em
+                                        class="mdi mdi-file-search"></em> Buscar</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" *ngFor="let item of products">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{item.productName}}</h5>
+                                <p class="card-text">{{item.description}}
+                                </p>
+                                <button class="btn btn-primary" (click)="addProduct(item)"  style="height:42px ;" type="button"> <em
+                                    class="mdi mdi-image-plus"></em> Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                   <!--  <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.
+                                </p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.
+                                </p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.
+                                </p>
+                                <a href="#" class="btn btn-light">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <br>
+                <div class="row">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            <tr *ngFor="let item of productsList">
+                                <td>{{item.productName}}</td>
+                                <td>${{item.packagePrice}}</td>
+                                <td></td>
+                            </tr>                         
+                        </tbody>
+                        <tfoot>
+                            <tr style="text-align: right;">
+                                <td>Total</td>
+                                <td>${{pricePackage}}</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <br>
+                <div class="row ">
+                    <div style="text-align: right; color: darkgreen;">
+                        <button type="button" class="btn btn-danger">Cancelar</button>&nbsp; &nbsp;
+                        <button class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <hr>
+        <br>
+
+        <br>
+
+
+
+    </div>
+    <div class="card-footer text-muted">
+
+    </div>
+</div>
