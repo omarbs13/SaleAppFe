@@ -12,16 +12,15 @@
         </div>
 
         <p-table #dt [value]="customers" styleClass="p-datatable-striped" responsiveLayout="scroll" [paginator]="true"
-            [rows]="20" [showCurrentPageReport]="true"
-            currentPageReportTemplate="{totalRecords} clientes" [rowsPerPageOptions]="[10,25,50]"
-            [exportHeader]="'customExportHeader'">
+            [rows]="20" [showCurrentPageReport]="true" currentPageReportTemplate="{totalRecords} clientes"
+            [rowsPerPageOptions]="[10,25,50]" [exportHeader]="'customExportHeader'">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Nombre del cliente</th>
                     <th>RFC</th>
                     <th>Email</th>
                     <th>Teléfono</th>
-                    <th>Saldo a favor</th>
+                    <th>Saldo</th>
                     <th>Código postal</th>
                     <th class="tblActions"></th>
                 </tr>
@@ -32,15 +31,24 @@
                     <td>{{item.rfc}}</td>
                     <td>{{item.email}}</td>
                     <td>{{item.phone}}</td>
-                    <td>{{item.balance}}</td>
+                    <td [ngStyle]="{'color':item.balance<0?'red':'green'}">{{item.balance|currency}}</td>
                     <td>{{item.zipCode}}</td>
-                    <td>                    
+                    <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group" role="group" aria-label="First group">                               
+                            <div class="btn-group" role="group" aria-label="First group">
+
+                                <button type="button" class="btnAbonar" title="Abonar"
+                                    (click)="delete(item.customerId)"><em class="mdi mdi-account-arrow-right icon"></em></button>
+                                &nbsp;&nbsp;
+                                <button type="button" class="btnList" title="Ver abonos"
+                                    (click)="delete(item.customerId)"><em class="mdi mdi-view-list icon"></em></button> &nbsp;&nbsp;
                                 <button type="button" class="btnEdit" title="editar"
-                                    (click)="open(item.customerId,item.stateId)"><em class="mdi mdi-lead-pencil"></em></button> &nbsp;&nbsp;
+                                    (click)="open(item.customerId,item.stateId)"><em
+                                        class="mdi mdi-lead-pencil"></em></button> &nbsp;&nbsp;
                                 <button type="button" class="btnDelete" title="borrar"
                                     (click)="delete(item.customerId)"><em class="mdi mdi-trash-can icon"></em></button>
+
+
                             </div>
                         </div>
                     </td>

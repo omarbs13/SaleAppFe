@@ -2,9 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/interface/DialogData ';
-import { ProductModel, ProviderModel } from 'src/app/interface/user.mode';
+import { ProductModel, ProviderModel, TypeProductModel } from 'src/app/interface/user.mode';
 import { ProviderService } from '../../../services/provider.service';
 import { ProductService } from '../../../services/product.service';
+import { CatalogService } from '../../../services/catalog.service';
 
 @Component({
   selector: 'app-product-modal',
@@ -16,23 +17,28 @@ export class ProductModalComponent implements OnInit {
   isNew: boolean = true;
 
   providers: ProviderModel[] = [];
+  productType: TypeProductModel[] = [];
   productForm: FormGroup = new FormGroup({
-    productId: new FormControl('id'),
-    productName: new FormControl('id'),
-    description: new FormControl('id'),
-    providerId: new FormControl('id'),
-    salePrice: new FormControl('id'),
-    purchasePrice: new FormControl('id'),
-    packagePrice: new FormControl('id'),
-    providerName: new FormControl(''),
-    user: new FormControl('id'),
+    productId: new FormControl(),
+    productName: new FormControl(),
+    description: new FormControl(),
+    providerId: new FormControl(),
+    salePrice: new FormControl(),
+    purchasePrice: new FormControl(),
+    packagePrice: new FormControl(),
+    providerName: new FormControl(),
+    code: new FormControl(),
+    productTypeId: new FormControl(),
+    user: new FormControl(),
+
   });
 
   constructor(
     public dialogRef: MatDialogRef<ProductModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private productService: ProductService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private catalogService: CatalogService
   ) {
     dialogRef.disableClose = true;
     this.data.success = false;
@@ -53,6 +59,7 @@ export class ProductModalComponent implements OnInit {
       }
     });
     this.getProviders();
+    this.getProductType();
   }
 
   onCancel(): void {
@@ -107,6 +114,14 @@ export class ProductModalComponent implements OnInit {
     return this.productForm.get('packagePrice');
   }
 
+  get code() {
+    return this.productForm.get('code');
+  }
+
+  get productTypeId() {
+    return this.productForm.get('productTypeId');
+  }
+
   createForm(item?: ProductModel) {
     let id = item ? item.productId : 0;
     this.productForm = new FormGroup({
@@ -119,6 +134,8 @@ export class ProductModalComponent implements OnInit {
       packagePrice: new FormControl(item?.packagePrice),
       providerName: new FormControl(''),
       user: new FormControl('admin'),
+      code: new FormControl(item?.code),
+      productTypeId: new FormControl(item?.productId),
     });
   }
 
@@ -126,5 +143,11 @@ export class ProductModalComponent implements OnInit {
     this.providerService
       .getAllProviders()
       .subscribe((data) => (this.providers = data));
+  }
+
+  getProductType() {
+    this.catalogService
+      .getTypeProduct()
+      .subscribe((data) => (this.productType = data));
   }
 }

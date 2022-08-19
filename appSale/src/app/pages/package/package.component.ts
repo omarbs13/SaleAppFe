@@ -3,6 +3,7 @@ import { PackageModel } from 'src/app/interface/user.mode';
 import { CommonService } from 'src/app/services/common.service';
 import { PackagesService } from '../../services/packages.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-package',
@@ -22,7 +23,25 @@ export class PackageComponent implements OnInit {
   open(id: number) {
     this.route.navigate([`/frmPackage/${id}`]);
   }
-  delete(id:number){}
+  delete(id:number){
+    Swal.fire({
+      title: 'Quieres eliminar este paquete?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.packagesService.deletetPackage(id).subscribe((res) => {
+          if (res.packageId > 0) {
+            this.getPackages();
+            Swal.fire('Eliminado!', '', 'success');
+          } else {
+            Swal.fire('Ocurrio un error!', '', 'warning');
+          }
+        });
+      }
+    });
+  }
 
   exportExcel() {    
     this.util.exportExcel('paquetes', this.packages);

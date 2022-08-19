@@ -17469,3 +17469,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .tblActions{
   width:10%
 }
+
+.btnAbonar{
+  font-size: large; color: green;
+}
+
+.btnList{
+  font-size: large; color: var(--gray-dark);
+}

@@ -43,9 +43,8 @@
                     </div>
                     <div class="col-4">
                         <label for="exampleFormControlInput1" class="form-label">Tipo paquete</label>
-                        <select class="form-select"  formControlName="typePackageId" aria-label="Default select example">
-                            <option value="1">Platillo especial</option>
-                            <option value="2">Platillo del día</option>
+                        <select class="form-select"  formControlName="typePackageId" >                            
+                            <option *ngFor="let item of productTypeList" value="{{item.typePackageId}}">{{item.typePackageName}}</option>
                         </select>
                     </div>
                 </div>
@@ -178,23 +177,29 @@
                         <tbody class="tbody">
                             <tr *ngFor="let item of productsList">
                                 <td>{{item.productName}}</td>
-                                <td>${{item.packagePrice}}</td>
-                                <td></td>
+                                <td>${{item.price}}</td>
+                                <td><button type="button" class="btnDelete" title="borrar"
+                                    (click)="delete(item)"><em class="mdi mdi-trash-can icon"></em></button></td>
                             </tr>                         
                         </tbody>
                         <tfoot>
                             <tr style="text-align: right;">
                                 <td>Total</td>
                                 <td>${{pricePackage}}</td>
-                                <td></td>
+                                <td>  </td>
                             </tr>
                         </tfoot>
                     </table>
+                    <div *ngIf="isValidProductList" class="text-danger">
+                    <div *ngIf="isValidProductList">
+                        La lista de productos del paque no puede ser vacia.
+                    </div>
+                </div>
                 </div>
                 <br>
                 <div class="row ">
                     <div style="text-align: right; color: darkgreen;">
-                        <button type="button" class="btn btn-danger">Cancelar</button>&nbsp; &nbsp;
+                        <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>&nbsp; &nbsp;
                         <button class="btn btn-success">Guardar</button>
                     </div>
                 </div>

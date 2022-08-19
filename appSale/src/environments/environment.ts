@@ -45,8 +45,12 @@ export const ApiInventory = `${URL}/Inventory`;
 export const ApiInventoryGet = `${URL}/Inventory/Get`;
 
 export const ApiPackageGetAll = `${URL}/Package/GetAll`;
+export const ApiPackageGet = `${URL}/Package/Get`;
+export const ApiPackage = `${URL}/Package`;
 
 export const GetStates = `${URL}/Catalog/GetState`;
 export const GetCities = `${URL}/Catalog/GetCity`;
+export const GetTypePackage = `${URL}/Catalog/GetTypePackage`;
+export const GetTypeProduct = `${URL}/Catalog/GetTypeProduct`;
 
 export const RfcValid='^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$';

@@ -56,12 +56,12 @@
         <td style="width:40%;">
           <div class="form-group">
             <mat-form-field appearance="legacy">
-              <mat-label for="salePrice">Código</mat-label>
-              <input matInput type="number" formControlName="salePrice" min="1" max="1000000">
+              <mat-label for="code">Código</mat-label>
+              <input matInput type="text" formControlName="code" maxlength="15">
             </mat-form-field>
-            <div *ngIf="salePrice?.invalid && (salePrice?.dirty || salePrice?.touched)" class="text-danger">
-              <div *ngIf="salePrice?.errors?.['required']">
-                El precio de venta es requerido.
+            <div *ngIf="code?.invalid && (code?.dirty || code?.touched)" class="text-danger">
+              <div *ngIf="code?.errors?.['required']">
+                El código es requerido.
               </div>
             </div>
           </div>
@@ -70,12 +70,15 @@
         <td style="width:40%;">
           <div class="form-group">
             <mat-form-field appearance="legacy">
-              <mat-label for="purchasePrice">Tipo producto</mat-label>
-              <input matInput type="number" formControlName="purchasePrice" min="1" max="1000000">
+              <mat-label>Tipo de producto</mat-label>
+              <mat-select required="" formControlName="productTypeId">
+                <mat-option *ngFor="let item of productType" [value]="item.productTypeId">{{item.productTypeName}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
-            <div *ngIf="purchasePrice?.invalid && (purchasePrice?.dirty || purchasePrice?.touched)" class="text-danger">
-              <div *ngIf="purchasePrice?.errors?.['required']">
-                El precio de compra es requerido.
+            <div *ngIf="productTypeId?.invalid && (productTypeId?.dirty || productTypeId?.touched)" class="text-danger">
+              <div *ngIf="productTypeId?.errors?.['required']">
+                El tipo de producto es requerido.
               </div>
             </div>
           </div>

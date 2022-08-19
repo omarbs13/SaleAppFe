@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProductModel } from 'src/app/interface/user.mode';
+import {
+  ProductModel,
+  ProductPackageModel,
+  TypePackageModel,
+} from 'src/app/interface/user.mode';
 import { ProductService } from '../../../services/product.service';
+import { CatalogService } from '../../../services/catalog.service';
+import { PackagesService } from 'src/app/services/packages.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { PackageModel } from '../../../interface/user.mode';
 
 @Component({
   selector: 'app-frm-package',
@@ -10,9 +19,13 @@ import { ProductService } from '../../../services/product.service';
 })
 export class FrmPackageComponent implements OnInit {
   filterId: number = 3;
+  idPackage: number = 0;
+  isNewPackage: boolean = true;
   pricePackage: number = 0;
   products: ProductModel[] = [];
-  productsList: ProductModel[] = [];
+  productsList: ProductPackageModel[] = [];
+  productTypeList: TypePackageModel[] = [];
+  isValidProductList: boolean = false;
   packageForm: FormGroup = new FormGroup({
     packageId: new FormControl(''),
     packageName: new FormControl(''),
@@ -22,18 +35,82 @@ export class FrmPackageComponent implements OnInit {
     products: new FormControl(''),
   });
 
-  constructor(private productService: ProductService) {
-    this.createForm();
+  constructor(
+    private productService: ProductService,
+    private catalogService: CatalogService,
+    private packagesService: PackagesService,
+    private route: Router,
+    private actRoute: ActivatedRoute
+  ) {
+    this.actRoute.paramMap.subscribe((res) => {
+      this.idPackage = parseInt(res.get('id') || '0');
+      this.isNewPackage = this.idPackage == 0;
+      if (!this.isNewPackage) {
+        this.packagesService.getPackage(this.idPackage).subscribe((res) => {
+          res.products.forEach( (item) => {
+            this.pricePackage += item.price;
+          });
+          this.createForm(res);
+        });
+      } else {
+        this.createForm();
+      }
+    });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getTypePackage();
+  }
 
   onSubmit() {
+    this.isValidProductList = false;
     if (this.packageForm.invalid) {
       console.log(this.packageForm);
-      console.log(this.packageForm.value);
       return;
     }
+    if (this.productsList.length == 0) {
+      this.isValidProductList = true;
+      return;
+    }
+    if (this.isNewPackage) {
+      this.packagesService
+        .postPackage(this.packageForm.value, this.productsList)
+        .subscribe((x) => {
+          if (x.success) {
+            Swal.fire('Registro guardado!', '', 'success').then((result) => {
+              if (result.value) {
+                this.route.navigate(['/package/']);
+              } else if (result.value == undefined) {
+                this.route.navigate(['/package/']);
+              } else {
+                Swal.fire('Ocurrio un error!', '', 'warning');
+              }
+            });
+          }
+        });
+    } else {
+      this.packagesService
+        .putPackage(this.packageForm.value, this.productsList)
+        .subscribe((x) => {
+          if (x.success) {
+            Swal.fire('Registro guardado!', '', 'success').then((result) => {           
+              if (result.value) {
+                this.route.navigate(['/package/']);
+              } else if (result.value == undefined) {
+                this.route.navigate(['/package/']);
+              } else {
+                Swal.fire('Ocurrio un error!', '', 'warning');
+              }
+            });
+          }
+        });
+    }
+  }
+
+  getTypePackage() {
+    this.catalogService
+      .getTypePackage()
+      .subscribe((data) => (this.productTypeList = data));
   }
 
   get description() {
@@ -53,29 +130,50 @@ export class FrmPackageComponent implements OnInit {
   }
 
   searchProduct(text: string) {
-    console.log('searchProduct');
     this.productService.filter(this.filterId, text).subscribe((res) => {
       this.products = res;
     });
   }
 
   addProduct(product: ProductModel) {
-    this.pricePackage +=product.packagePrice;
-    this.productsList.push(product);
+    let { productId, productName, packagePrice } = product;
+
+    const pkg: ProductPackageModel = {} as ProductPackageModel;
+    pkg.price = packagePrice;
+    pkg.productId = productId;
+    pkg.productName = productName;
+    this.pricePackage += pkg.price;
+    this.productsList.push(pkg);
   }
 
   filter(e: any) {
     this.filterId = e.id;
   }
 
-  createForm() {
+  delete(product: ProductPackageModel) {
+    let indx = this.productsList.findIndex(
+      (x) => x.productId == product.productId
+    );
+    if (indx > -1) {
+      this.productsList.splice(indx, 1);
+      this.pricePackage -= product?.price;
+    }
+  }
+
+  createForm(pkg?: PackageModel) {
+    this.productsList = pkg?.products!;
+
     this.packageForm = new FormGroup({
-      packageId: new FormControl(''),
-      packageName: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required),
-      typePackageId: new FormControl('', Validators.required),
-      products: new FormControl('', Validators.required),
+      packageId: new FormControl(pkg?.packageId),
+      packageName: new FormControl(pkg?.packageName, Validators.required),
+      description: new FormControl(pkg?.description, Validators.required),
+      price: new FormControl(pkg?.price, Validators.required),
+      typePackageId: new FormControl(pkg?.typePackageId, Validators.required),
+      products: new FormControl(''),
     });
+  }
+
+  back() {
+    this.route.navigate(['/package/']);
   }
 }

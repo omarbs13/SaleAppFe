@@ -76,6 +76,9 @@ export interface ProductModel {
   purchasePrice: number;
   packagePrice: number;
   providerId: number;
+  code: string,
+  productTypeId: number,
+  productTypeName: number,
   providerName: string;
 }
 
@@ -95,7 +98,7 @@ export interface PackageModel {
   typePackage: string;
   typePackageId: number;
   total: number;
-  products: ProductPackageModel;
+  products: ProductPackageModel[];
 }
 
 export interface ProductPackageModel {
@@ -104,4 +107,14 @@ export interface ProductPackageModel {
   productName: string;
   description: string;
 
+}
+
+export interface TypeProductModel {
+  productTypeId: number;
+  productTypeName: string;
+}
+
+export interface TypePackageModel {
+  typePackageId: number;
+  typePackageName: string;
 }

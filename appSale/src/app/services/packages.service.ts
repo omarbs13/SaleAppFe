@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { PackageModel } from '../interface/user.mode';
+import { PackageModel, ProductModel, ProductPackageModel } from '../interface/user.mode';
 import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
 import { map } from 'rxjs';
-import { ApiPackageGetAll } from 'src/environments/environment';
+import { ApiPackage, ApiPackageGet, ApiPackageGetAll } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +11,23 @@ import { ApiPackageGetAll } from 'src/environments/environment';
 export class PackagesService {
   constructor(private methodsHttp: MethodsHttpProvider) {}
 
- /*  postProvider(request: any) {
-    return this.methodsHttp.httpPost(ApiProvider, JSON.stringify(request)).pipe(
+  postPackage(request: PackageModel,products:ProductPackageModel[]) {
+    request.products=products;
+    return this.methodsHttp.httpPost(ApiPackage, JSON.stringify(request)).pipe(
       map((data) => {
         return data;
       })
     );
   }
 
-  putProvider(request: ProviderModel) {   
-    return this.methodsHttp.httpPut(ApiProvider, JSON.stringify(request)).pipe(
+  putPackage(request: PackageModel,products:ProductPackageModel[]) { 
+    request.products=products;  
+    return this.methodsHttp.httpPut(ApiPackage, JSON.stringify(request)).pipe(
       map((data) => {
         return data;
       })
     );
-  } */
+  } 
 
   getAllPackages(): Observable<PackageModel[]> {
     return this.methodsHttp.httpGet(ApiPackageGetAll).pipe(
@@ -34,19 +36,20 @@ export class PackagesService {
       })
     );
   }  
-  /* geProvider(id: number): Observable<ProviderModel> {
-    return this.methodsHttp.httpGetById(ApiProviderGet, id,'id').pipe(
+
+   getPackage(id: number): Observable<PackageModel> {
+    return this.methodsHttp.httpGetById(ApiPackageGet, id,'id').pipe(
       map((response) => {
         return response.data;
       })
     );
   }
 
-  deletetProvider(id: number): Observable<ProviderModel> {
-    return this.methodsHttp.deleteById(ApiProvider, id,'providerId').pipe(
+  deletetPackage(id: number): Observable<PackageModel> {
+    return this.methodsHttp.deleteById(ApiPackage, id,'customerId').pipe(
       map((response) => {
         return response.data;
       })
     );
-  } */
+  } 
 }
