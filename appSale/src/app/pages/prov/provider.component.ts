@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogData } from 'src/app/interface/DialogData ';
+import { DialogData, DialogProvider } from 'src/app/interface/DialogData ';
 import Swal from 'sweetalert2';
 import { ProviderModel } from 'src/app/interface/user.mode';
 import { ProviderModalComponent } from './provider-modal/provider-modal.component';
 import { ProviderService } from '../../services/provider.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ExpensesComponent } from './expenses/expenses.component';
 @Component({
   selector: 'app-provider',
   templateUrl: './provider.component.html',
@@ -53,6 +54,21 @@ export class ProviderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: DialogData) => {
+      this.success = result.success;
+      if (result.success) {
+        Swal.fire('Registro guardado!', '', 'success');
+        this.getProviders();
+      }
+    });
+  }
+
+  expense(id: number,providerName:string) {
+    const dialogRef = this.dialog.open(ExpensesComponent, {
+      width: '550px',
+      data: { success: false, id,providerName},
+    });
+
+    dialogRef.afterClosed().subscribe((result: DialogProvider) => {
       this.success = result.success;
       if (result.success) {
         Swal.fire('Registro guardado!', '', 'success');

@@ -1,0 +1,63 @@
+<h1 mat-dialog-title>Gastos de el proveedor: {{titleModal}}</h1>
+<hr>
+<div mat-dialog-content>
+  <form [formGroup]="providerForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <table style="width:100%;">
+        <tr>
+            <td style="width:40%;">
+              <div class="form-group">
+                <mat-form-field appearance="legacy">
+                  <mat-label for="total">Costo</mat-label>
+                  <input matInput type="number" formControlName="total" min="1" max="999999">
+                </mat-form-field>
+                <div *ngIf="total?.invalid && (total?.dirty || total?.touched)" class="text-danger">
+                  <div *ngIf="total?.errors?.['required']">
+                    El total es requerido.
+                  </div>
+                </div>
+               
+              </div>
+            </td>
+            <td style="width:10%;"></td>
+            <td style="width:40%;">
+                <div class="form-group">
+                    <mat-form-field appearance="legacy">
+                      <mat-label for="totalProducts">Total de productos</mat-label>
+                      <input matInput type="number" formControlName="totalProducts" min="1" max="99999">
+                    </mat-form-field>
+        
+                    <div *ngIf="totalProducts?.invalid && (totalProducts?.dirty || totalProducts?.touched)" class="text-danger">
+                      <div *ngIf="totalProducts?.errors?.['required']">
+                        El total de products es requerido.
+                      </div>
+                    </div>
+                  </div>
+            </td>
+          </tr> 
+      <tr>
+        <td style="width:100%;" colspan="3">
+          <div class="form-group">
+            <mat-form-field appearance="legacy" style="width:100% ;">
+              <mat-label for="description">Descripión</mat-label>
+              <input matInput type="text" formControlName="description" maxlength="100">
+            </mat-form-field>
+            <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="text-danger">
+              <div *ngIf="description?.errors?.['required']">
+                La descripión es requerido.
+              </div>
+            </div>
+          </div>
+        </td>
+      
+      </tr>
+      
+   
+    </table>
+    <hr>
+    <div style="text-align: right;">
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+      <button class="btn btn-success" [disabled]="!providerForm.valid">Guardar</button>
+    </div>
+
+  </form>
+</div>

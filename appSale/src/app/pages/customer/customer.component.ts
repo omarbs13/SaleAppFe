@@ -6,12 +6,12 @@ import Swal from 'sweetalert2';
 import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 import { CommonService } from 'src/app/services/common.service';
+import { AbonoComponent } from './abono/abono.component';
 
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class CustomerComponent implements OnInit {
   success: boolean = false;
@@ -48,10 +48,25 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  open(id: number,stateId:number) {
+  open(id: number, stateId: number) {
     const dialogRef = this.dialog.open(CustomerModalComponent, {
       width: '550px',
-      data: { success: false, id,stateId },
+      data: { success: false, id, stateId },
+    });
+
+    dialogRef.afterClosed().subscribe((result: DialogData) => {
+      this.success = result.success;
+      if (result.success) {
+        Swal.fire('Registro guardado!', '', 'success');
+        this.getCustomers();
+      }
+    });
+  }
+
+  abonar(id: number) {
+    const dialogRef = this.dialog.open(AbonoComponent, {
+      width: '550px',
+      data: { success: false, id },
     });
 
     dialogRef.afterClosed().subscribe((result: DialogData) => {
@@ -69,7 +84,7 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  exportExcel() {    
+  exportExcel() {
     this.util.exportExcel('clientes', this.customers);
   }
 }

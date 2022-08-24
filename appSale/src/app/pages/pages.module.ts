@@ -28,6 +28,10 @@ import { ProductModalComponent } from './product/product-modal/product-modal.com
 import { InventoryModalComponent } from './product/inventory-modal/inventory-modal.component';
 import { PackageComponent } from './package/package.component';
 import { FrmPackageComponent } from './package/frm-package/frm-package.component';
+import { AbonoComponent } from './customer/abono/abono.component';
+import { ExpensesComponent } from './prov/expenses/expenses.component';
+import { OrderComponent } from './order/order.component';
+import { CurrentMenuComponent } from './current-menu/current-menu.component';
 
 const materialModules = [
 /*   MatButtonModule,
@@ -60,6 +64,10 @@ const materialModules = [
     InventoryModalComponent,
     PackageComponent,
     FrmPackageComponent,
+    AbonoComponent,
+    ExpensesComponent,
+    OrderComponent,
+    CurrentMenuComponent
   ],
   imports: [CommonModule, RouterModule,materialModules,FormsModule,ReactiveFormsModule,TableModule],
   exports: [

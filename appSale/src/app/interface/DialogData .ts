@@ -14,3 +14,10 @@ export interface DialogInventory {
   productName:string,
   inventory:InventoryModel
 }
+
+export interface DialogProvider {
+  success: boolean;
+  msg: string;
+  id:number,
+  providerName:string
+}

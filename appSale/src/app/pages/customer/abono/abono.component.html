@@ -1,0 +1,71 @@
+<h1 mat-dialog-title>Total a pagar: $ 1,000,000.00</h1>
+<hr>
+<div mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+        <table style="width:100%; padding-left: 100px;">
+            <tr>
+                <td style="width:10%;">
+
+                </td>
+                <td style="width:40%;">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label for="total">Paga con</mat-label>
+                                    <input matInput type="number" formControlName="total" (keyup)="calculaCambio()" min="1" max="999999">
+                                </mat-form-field>
+                                <div *ngIf="total?.invalid && (total?.dirty || total?.touched)" class="text-danger">
+                                    <div *ngIf="total?.errors?.['required']">
+                                        El total es requerido.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label >Cambio</mat-label>
+                                    <input matInput type="text" value="{{cambio}}" readonly="true" maxlength="50">
+                                </mat-form-field>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:40%;">
+
+                </td>
+            </tr>
+            <tr>
+                <td style="width:10%; ">
+
+                </td>
+                <td style="width:20%;">
+                    <div class="form-check form-switch">
+                        <input #chkCash class="form-check-input" (change)="checkCash()" type="checkbox" role="switch" id="1"
+                            checked>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Efectivo</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" (change)="checkCard()" role="switch" id="2">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Tarjeta</label>
+                    </div>
+                  
+                </td>
+                <td style="width:70%;">
+                    <mat-form-field appearance="legacy" *ngIf="ckhCard">
+                        <mat-label for="ref">Referencia</mat-label>
+                        <input matInput type="text" formControlName="ref" maxlength="20">
+                    </mat-form-field>
+                </td>
+
+        </table>
+        <hr>
+        <div style="text-align: right;">
+            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+            <button class="btn btn-success" [disabled]="!form.valid">Guardar</button>
+        </div>
+
+    </form>
+</div>
