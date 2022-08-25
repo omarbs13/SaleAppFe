@@ -53,7 +53,7 @@ export class ExpensesComponent implements OnInit {
     }
  
       this.providerService
-        .postProvider(this.providerForm.value)
+        .postExpense(this.providerForm.value)
         .subscribe((data: any) => {
           if (data.success) {
             this.data.success = true;
@@ -73,7 +73,6 @@ export class ExpensesComponent implements OnInit {
     return this.providerForm.get('phone');
   }
   
-
   createForm(id:number) {
     this.providerForm = new FormGroup({
       providerId: new FormControl(id),

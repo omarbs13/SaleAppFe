@@ -76,10 +76,11 @@ export interface ProductModel {
   purchasePrice: number;
   packagePrice: number;
   providerId: number;
-  code: string,
-  productTypeId: number,
-  productTypeName: number,
+  code: string;
+  productTypeId: number;
+  productTypeName: number;
   providerName: string;
+  inventory: InventoryModel;
 }
 
 export interface InventoryModel {
@@ -106,7 +107,6 @@ export interface ProductPackageModel {
   price: number;
   productName: string;
   description: string;
-
 }
 
 export interface TypeProductModel {
@@ -117,4 +117,31 @@ export interface TypeProductModel {
 export interface TypePackageModel {
   typePackageId: number;
   typePackageName: string;
+}
+
+export interface ExpensesModel {
+  providerId: number;
+  totalProducts: number;
+  total: number;
+  description: number;
+  providerName: number;
+  dateExpense: Date;
+}
+
+export interface PaymentCustomerModel {
+  paymentCustomerId: number;
+  datePayment: Date;
+  paymentType: string;
+  numericReference: string;
+  payment: number;
+}
+
+export interface CreditCustomerModel {
+  creditCustomerId: number;
+  referenceSale: string;
+  originalCost: number;
+  cost: number;
+  isPaidOut: boolean;
+  customerId: number;
+  folio: number;
 }

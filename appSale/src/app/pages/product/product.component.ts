@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProviders();
+    this.getProducts();
   }
 
   delete(id: number) {
@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit {
       if (result.isConfirmed) {
         this.productService.delete(id).subscribe((res) => {
           if (res.productId > 0) {
-            this.getProviders();
+            this.getProducts();
             Swal.fire('Eliminado!', '', 'success');
           } else {
             Swal.fire('Ocurrio un error!', '', 'warning');
@@ -59,7 +59,7 @@ export class ProductComponent implements OnInit {
       this.success = result.success;
       if (result.success) {
         Swal.fire('Registro guardado!', '', 'success');
-        this.getProviders();
+        this.getProducts();
       }
     });
   }
@@ -74,13 +74,13 @@ export class ProductComponent implements OnInit {
       this.success = result.success;
       if (result.success) {
         Swal.fire('Registro guardado!', '', 'success');
-        this.getProviders();
+        this.getProducts();
       }
     });
   }
 
-  getProviders() {
-    this.productService.getAll().subscribe((data) => {
+  getProducts() {
+    this.productService.getAll().subscribe((data) => {      
       this.products = data;
     });
   }

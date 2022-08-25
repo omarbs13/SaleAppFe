@@ -37,8 +37,10 @@
                     <td>
                         <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="First group">       
-                                <button type="button" class="btnAbonar" title="gastos"
-                                (click)="expense(item.providerId,item.providerName)"><em class="mdi mdi-coin"></em></button>&nbsp;&nbsp;                        
+                                <button type="button" class="btnAbonar" title="Agregar gastos"
+                                (click)="expense(item.providerId,item.providerName)"><em class="mdi mdi-coin"></em></button>&nbsp;&nbsp;
+                                <button type="button" class="btnList" title="Ver gastos"
+                                    (click)="expenseList(item.providerId,item.providerName)"><em class="mdi mdi-view-list icon"></em></button>&nbsp;&nbsp;                        
                                 <button type="button" class="btnEdit" title="editar"
                                     (click)="open(item.providerId,item.stateId)"><em class="mdi mdi-lead-pencil"></em></button>&nbsp;&nbsp;
                                 <button type="button" class="btnDelete" title="borrar"

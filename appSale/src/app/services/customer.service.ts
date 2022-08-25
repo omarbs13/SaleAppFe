@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ApiCustomer, ApiCustomerGet, ApiCustomerGetAll } from 'src/environments/environment';
-import { CustomerModel } from '../interface/user.mode';
+import { ApiCustomer, ApiCustomerGet, ApiCustomerGetAll, ApiCustomerGetCredits, ApiCustomerGetPayments, ApiCustomerPayment } from 'src/environments/environment';
+import { CreditCustomerModel, CustomerModel, PaymentCustomerModel } from '../interface/user.mode';
 import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
 
 @Injectable({
@@ -12,6 +12,14 @@ export class CustomerService {
 
   postCustomer(request: any) {
     return this.methodsHttp.httpPost(ApiCustomer, JSON.stringify(request)).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
+
+  postCreditCustomer(request: any) {
+    return this.methodsHttp.httpPost(ApiCustomerPayment, JSON.stringify(request)).pipe(
       map((data) => {
         return data;
       })
@@ -36,6 +44,22 @@ export class CustomerService {
 
   geCustomer(id: number): Observable<CustomerModel> {
     return this.methodsHttp.httpGetById(ApiCustomerGet, id,'id').pipe(
+      map((response) => {
+        return response.data;
+      })
+    );
+  }
+
+  getPayments(id: number): Observable<PaymentCustomerModel[]> {
+    return this.methodsHttp.httpGetById(ApiCustomerGetPayments, id,'customerId').pipe(
+      map((response) => {
+        return response.data;
+      })
+    );
+  }
+
+  getCredits(id:number): Observable<CreditCustomerModel[]> {
+    return this.methodsHttp.httpGetById(ApiCustomerGetCredits, id,'customerId').pipe(
       map((response) => {
         return response.data;
       })

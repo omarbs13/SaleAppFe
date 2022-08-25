@@ -1,0 +1,23 @@
+
+<h1 mat-dialog-title>Abonos de {{titleModal}}</h1>
+<hr>
+<div mat-dialog-content>
+    <table class="table">
+        <thead>
+            <th>Tipo pago</th>
+            <th>Costo</th>
+            <th>Fecha</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of payments">
+                <td>{{item.paymentType}}</td>
+                <td>{{item.payment|currency}}</td>
+                <td>{{item.datePayment}}</td>
+            </tr>
+        </tbody>
+    </table> 
+  <hr>
+  <div style="text-align: right;">
+    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+  </div>
+</div>

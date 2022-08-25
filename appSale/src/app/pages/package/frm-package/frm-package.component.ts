@@ -47,7 +47,7 @@ export class FrmPackageComponent implements OnInit {
       this.isNewPackage = this.idPackage == 0;
       if (!this.isNewPackage) {
         this.packagesService.getPackage(this.idPackage).subscribe((res) => {
-          res.products.forEach( (item) => {
+          res.products.forEach((item) => {
             this.pricePackage += item.price;
           });
           this.createForm(res);
@@ -56,6 +56,7 @@ export class FrmPackageComponent implements OnInit {
         this.createForm();
       }
     });
+    this.productsList = [];
   }
 
   ngOnInit(): void {
@@ -93,7 +94,7 @@ export class FrmPackageComponent implements OnInit {
         .putPackage(this.packageForm.value, this.productsList)
         .subscribe((x) => {
           if (x.success) {
-            Swal.fire('Registro guardado!', '', 'success').then((result) => {           
+            Swal.fire('Registro guardado!', '', 'success').then((result) => {
               if (result.value) {
                 this.route.navigate(['/package/']);
               } else if (result.value == undefined) {
@@ -162,13 +163,14 @@ export class FrmPackageComponent implements OnInit {
 
   createForm(pkg?: PackageModel) {
     this.productsList = pkg?.products!;
-
+    let type: number = pkg?.typePackageId == null ? 1 : pkg?.typePackageId;
+    let id: number = pkg?.packageId == null ? 0 : pkg?.packageId;
     this.packageForm = new FormGroup({
-      packageId: new FormControl(pkg?.packageId),
+      packageId: new FormControl(id),
       packageName: new FormControl(pkg?.packageName, Validators.required),
       description: new FormControl(pkg?.description, Validators.required),
       price: new FormControl(pkg?.price, Validators.required),
-      typePackageId: new FormControl(pkg?.typePackageId, Validators.required),
+      typePackageId: new FormControl(type, Validators.required),
       products: new FormControl(''),
     });
   }

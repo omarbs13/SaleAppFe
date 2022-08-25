@@ -129,40 +129,7 @@
                                     class="mdi mdi-image-plus"></em> Agregar</button>
                             </div>
                         </div>
-                    </div>
-                   <!--  <div class="col-sm-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                                <a href="#" class="btn btn-light">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div> -->
+                    </div>                  
                 </div>
                 <br>
                 <div class="row">
@@ -200,7 +167,7 @@
                 <div class="row ">
                     <div style="text-align: right; color: darkgreen;">
                         <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>&nbsp; &nbsp;
-                        <button class="btn btn-success">Guardar</button>
+                        <button class="btn btn-success" [disabled]="!packageForm.valid">Guardar</button>
                     </div>
                 </div>
             </form>

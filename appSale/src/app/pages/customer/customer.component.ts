@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogData } from 'src/app/interface/DialogData ';
+import { DialogCustomer, DialogData } from 'src/app/interface/DialogData ';
 import { CustomerModel } from 'src/app/interface/user.mode';
 import Swal from 'sweetalert2';
 import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 import { CommonService } from 'src/app/services/common.service';
 import { AbonoComponent } from './abono/abono.component';
+import { PaymentsListComponent } from './payments-list/payments-list.component';
 
 @Component({
   selector: 'app-customer',
@@ -63,19 +64,28 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  abonar(id: number) {
+  abonar(id: number,customerName:string,ammount:number) {
     const dialogRef = this.dialog.open(AbonoComponent, {
       width: '550px',
-      data: { success: false, id },
+      data: { success: false, id,customerName,ammount },
     });
 
-    dialogRef.afterClosed().subscribe((result: DialogData) => {
+    dialogRef.afterClosed().subscribe((result: DialogCustomer) => {
       this.success = result.success;
       if (result.success) {
         Swal.fire('Registro guardado!', '', 'success');
         this.getCustomers();
       }
     });
+  }
+
+  paymentList(id: number,name:string) {
+    const dialogRef = this.dialog.open(PaymentsListComponent, {
+      width: '550px',
+      data: { success: false, id,msg:name },
+    });
+
+    dialogRef.afterClosed().subscribe();
   }
 
   getCustomers() {

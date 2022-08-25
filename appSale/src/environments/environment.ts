@@ -29,6 +29,9 @@ export const ApiProviderGet = `${URL}/provider/Get`;
 export const ApiCustomer = `${URL}/Customer`;
 export const ApiCustomerGetAll = `${URL}/Customer/GetAll`;
 export const ApiCustomerGet = `${URL}/Customer/Get`;
+export const ApiCustomerGetPayments= `${URL}/Customer/GetPayments`;
+export const ApiCustomerGetCredits= `${URL}/Customer/GetCredits`;
+export const ApiCustomerPayment= `${URL}/Customer/CreatePayment`;
 
 export const ApiPostSubsidiary = `${URL}/Company/CreateSubsidiary`;
 export const ApiPutSubsidiary = `${URL}/Company/UpdateSubsidiary`;
@@ -52,5 +55,7 @@ export const GetStates = `${URL}/Catalog/GetState`;
 export const GetCities = `${URL}/Catalog/GetCity`;
 export const GetTypePackage = `${URL}/Catalog/GetTypePackage`;
 export const GetTypeProduct = `${URL}/Catalog/GetTypeProduct`;
+
+export const ApiExpense = `${URL}/Expense`;
 
 export const RfcValid='^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$';

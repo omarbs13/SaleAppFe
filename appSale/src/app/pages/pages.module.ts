@@ -32,6 +32,8 @@ import { AbonoComponent } from './customer/abono/abono.component';
 import { ExpensesComponent } from './prov/expenses/expenses.component';
 import { OrderComponent } from './order/order.component';
 import { CurrentMenuComponent } from './current-menu/current-menu.component';
+import { ExpensesListComponent } from './prov/expenses-list/expenses-list.component';
+import { PaymentsListComponent } from './customer/payments-list/payments-list.component';
 
 const materialModules = [
 /*   MatButtonModule,
@@ -67,7 +69,9 @@ const materialModules = [
     AbonoComponent,
     ExpensesComponent,
     OrderComponent,
-    CurrentMenuComponent
+    CurrentMenuComponent,
+    ExpensesListComponent,
+    PaymentsListComponent
   ],
   imports: [CommonModule, RouterModule,materialModules,FormsModule,ReactiveFormsModule,TableModule],
   exports: [

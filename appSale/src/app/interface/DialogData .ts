@@ -21,3 +21,11 @@ export interface DialogProvider {
   id:number,
   providerName:string
 }
+
+export interface DialogCustomer {
+  success: boolean;
+  msg: string;
+  id:number,
+  customerName:string,
+  ammount:number
+}

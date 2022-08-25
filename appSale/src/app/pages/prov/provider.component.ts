@@ -7,6 +7,7 @@ import { ProviderModalComponent } from './provider-modal/provider-modal.componen
 import { ProviderService } from '../../services/provider.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ExpensesComponent } from './expenses/expenses.component';
+import { ExpensesListComponent } from './expenses-list/expenses-list.component';
 @Component({
   selector: 'app-provider',
   templateUrl: './provider.component.html',
@@ -47,10 +48,10 @@ export class ProviderComponent implements OnInit {
     });
   }
 
-  open(id: number,stateId:number) {
+  open(id: number, stateId: number) {
     const dialogRef = this.dialog.open(ProviderModalComponent, {
       width: '550px',
-      data: { success: false, id ,stateId},
+      data: { success: false, id, stateId },
     });
 
     dialogRef.afterClosed().subscribe((result: DialogData) => {
@@ -62,10 +63,10 @@ export class ProviderComponent implements OnInit {
     });
   }
 
-  expense(id: number,providerName:string) {
+  expense(id: number, providerName: string) {
     const dialogRef = this.dialog.open(ExpensesComponent, {
       width: '550px',
-      data: { success: false, id,providerName},
+      data: { success: false, id, providerName },
     });
 
     dialogRef.afterClosed().subscribe((result: DialogProvider) => {
@@ -77,13 +78,21 @@ export class ProviderComponent implements OnInit {
     });
   }
 
+  expenseList(id: number, providerName: string) {
+    const dialogRef = this.dialog.open(ExpensesListComponent, {
+      width: '550px',
+      data: { success: false, id, providerName },
+    });
+    dialogRef.afterClosed().subscribe();
+  }
+
   getProviders() {
     this.providerService.getAllProviders().subscribe((data) => {
       this.providers = data;
     });
   }
 
-  exportExcel() {    
+  exportExcel() {
     this.util.exportExcel('proveedores', this.providers);
   }
 }

@@ -37,7 +37,7 @@
                     <td>{{item.salePrice | currency}}</td>
                     <td>{{item.purchasePrice| currency}}</td>
                     <td>{{item.packagePrice| currency}}</td>
-                    <td>{{item.productos}}</td>
+                    <td>{{item.inventory?item.inventory?.currentStock:0}}</td>
                     <td>{{item.providerName}}</td>
                     <td>
                         <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
