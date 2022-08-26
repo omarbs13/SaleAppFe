@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
+import { ApiPackageImg } from 'src/environments/environment';
+import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommonService {
+  constructor(private methodsHttp: MethodsHttpProvider) {}
 
-  constructor() { }
-
-  exportExcel(fileName:string,data:any) {
+  exportExcel(fileName: string, data: any) {
     import('xlsx').then((xlsx) => {
       const worksheet = xlsx.utils.json_to_sheet(data);
       const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
@@ -31,5 +32,11 @@ export class CommonService {
       data,
       fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
     );
+  }
+
+  uploadImg(img: any) {
+    let imgParam = new FormData();
+    imgParam.append('image', img);
+    return this.methodsHttp.httpPostImg(ApiPackageImg, imgParam);
   }
 }

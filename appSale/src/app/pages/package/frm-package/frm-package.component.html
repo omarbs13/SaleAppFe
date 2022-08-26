@@ -15,8 +15,7 @@
                     <div class="col-4">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Nombre del paquete</label>
-                            <input type="email" formControlName="packageName" class="form-control"
-                                maxlength="50" >
+                            <input type="email" formControlName="packageName" class="form-control" maxlength="50">
 
                             <div *ngIf="packageName?.invalid && (packageName?.dirty || packageName?.touched)"
                                 class="text-danger">
@@ -31,20 +30,21 @@
                         <div class="input-group mb-3">
 
                             <span class="input-group-text">$</span>
-                            <input type="number" class="form-control"  formControlName="price" aria-label="Amount (to the nearest dollar)" min="1" max="9999">
+                            <input type="number" class="form-control" formControlName="price"
+                                aria-label="Amount (to the nearest dollar)" min="1" max="9999">
                             <span class="input-group-text">.00</span>
-                            <div *ngIf="price?.invalid && (price?.dirty || price?.touched)"
-                            class="text-danger">
-                            <div *ngIf="price?.errors?.['required']">
-                                El nombre es requerido.
+                            <div *ngIf="price?.invalid && (price?.dirty || price?.touched)" class="text-danger">
+                                <div *ngIf="price?.errors?.['required']">
+                                    El nombre es requerido.
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                     <div class="col-4">
                         <label for="exampleFormControlInput1" class="form-label">Tipo paquete</label>
-                        <select class="form-select"  formControlName="typePackageId" >                            
-                            <option *ngFor="let item of productTypeList" value="{{item.typePackageId}}">{{item.typePackageName}}</option>
+                        <select class="form-select" formControlName="typePackageId">
+                            <option *ngFor="let item of productTypeList" value="{{item.typePackageId}}">
+                                {{item.typePackageName}}</option>
                         </select>
                     </div>
                 </div>
@@ -52,13 +52,24 @@
                     <div class="col-8">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Descripción</label>
-                            <input type="email" class="form-control"  formControlName="description" id="exampleFormControlInput1">
+                            <input type="email" class="form-control" formControlName="description"
+                                id="exampleFormControlInput1">
                             <div *ngIf="description?.invalid && (description?.dirty || description?.touched)"
-                            class="text-danger">
-                            <div *ngIf="description?.errors?.['required']">
-                                La descripción es requerida.
+                                class="text-danger">
+                                <div *ngIf="description?.errors?.['required']">
+                                    La descripción es requerida.
+                                </div>
                             </div>
                         </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Descripción</label>
+                            <input type="file" class="form-control" #file placeholder="Choose file" (change)="uploadFile($event)" multiple>
                         </div>
 
                     </div>
@@ -83,22 +94,22 @@
                                 <ul class="dropdown-menu" role="menu" (change)="filter($event.target)">
                                     <li>
                                         <div class="form-check px-5">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="1" checked>
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="1"
+                                                checked>
                                             <label class="text-black-50" for="flexRadioDefault2">
                                                 Producto
                                             </label>
                                         </div>
                                         <div class="form-check px-5">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="2" checked>
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="2"
+                                                checked>
                                             <label class="text-black-50" for="flexRadioDefault2">
                                                 Tipo producto
                                             </label>
                                         </div>
                                         <div class="form-check px-5">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="3" checked>
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="3"
+                                                checked>
                                             <label class="text-black-50" for="flexRadioDefault2">
                                                 Código
                                             </label>
@@ -112,8 +123,9 @@
                             <input type="hidden" name="search_param" value="all" id="search_param">
                             <input type="text" #search class="form-control" name="x" placeholder="...">
                             <span class="input-group-btn">
-                                <button class="btn btn-success" (click)="searchProduct( search.value)"  style="height:42px ;" type="button"> <em
-                                        class="mdi mdi-file-search"></em> Buscar</button>
+                                <button class="btn btn-success" (click)="searchProduct( search.value)"
+                                    style="height:42px ;" type="button"> <em class="mdi mdi-file-search"></em>
+                                    Buscar</button>
                             </span>
                         </div>
                     </div>
@@ -125,11 +137,11 @@
                                 <h5 class="card-title">{{item.productName}}</h5>
                                 <p class="card-text">{{item.description}}
                                 </p>
-                                <button class="btn btn-primary" (click)="addProduct(item)"  style="height:42px ;" type="button"> <em
-                                    class="mdi mdi-image-plus"></em> Agregar</button>
+                                <button class="btn btn-primary" (click)="addProduct(item)" style="height:42px ;"
+                                    type="button"> <em class="mdi mdi-image-plus"></em> Agregar</button>
                             </div>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
                 <br>
                 <div class="row">
@@ -145,23 +157,23 @@
                             <tr *ngFor="let item of productsList">
                                 <td>{{item.productName}}</td>
                                 <td>${{item.price}}</td>
-                                <td><button type="button" class="btnDelete" title="borrar"
-                                    (click)="delete(item)"><em class="mdi mdi-trash-can icon"></em></button></td>
-                            </tr>                         
+                                <td><button type="button" class="btnDelete" title="borrar" (click)="delete(item)"><em
+                                            class="mdi mdi-trash-can icon"></em></button></td>
+                            </tr>
                         </tbody>
                         <tfoot>
                             <tr style="text-align: right;">
                                 <td>Total</td>
                                 <td>${{pricePackage}}</td>
-                                <td>  </td>
+                                <td> </td>
                             </tr>
                         </tfoot>
                     </table>
                     <div *ngIf="isValidProductList" class="text-danger">
-                    <div *ngIf="isValidProductList">
-                        La lista de productos del paque no puede ser vacia.
+                        <div *ngIf="isValidProductList">
+                            La lista de productos del paque no puede ser vacia.
+                        </div>
                     </div>
-                </div>
                 </div>
                 <br>
                 <div class="row ">

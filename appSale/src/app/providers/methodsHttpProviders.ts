@@ -34,6 +34,15 @@ export class MethodsHttpProvider {
     return this.http.post<any>(url, body, httpOptions);
   }
 
+  httpPostImg(url: string, body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL',
+      }),
+    };
+    return this.http.post<any>(url, body);
+  }
+
   httpPut(url: string, body: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

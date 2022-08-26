@@ -11,6 +11,7 @@ import { PackagesService } from 'src/app/services/packages.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { PackageModel } from '../../../interface/user.mode';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-frm-package',
@@ -26,6 +27,7 @@ export class FrmPackageComponent implements OnInit {
   productsList: ProductPackageModel[] = [];
   productTypeList: TypePackageModel[] = [];
   isValidProductList: boolean = false;
+  file: any;
   packageForm: FormGroup = new FormGroup({
     packageId: new FormControl(''),
     packageName: new FormControl(''),
@@ -33,12 +35,14 @@ export class FrmPackageComponent implements OnInit {
     price: new FormControl(''),
     typePackageId: new FormControl(''),
     products: new FormControl(''),
+    image: new FormControl(''),
   });
 
   constructor(
     private productService: ProductService,
     private catalogService: CatalogService,
     private packagesService: PackagesService,
+    private commonService: CommonService,
     private route: Router,
     private actRoute: ActivatedRoute
   ) {
@@ -73,39 +77,63 @@ export class FrmPackageComponent implements OnInit {
       this.isValidProductList = true;
       return;
     }
-    if (this.isNewPackage) {
-      this.packagesService
-        .postPackage(this.packageForm.value, this.productsList)
-        .subscribe((x) => {
-          if (x.success) {
-            Swal.fire('Registro guardado!', '', 'success').then((result) => {
-              if (result.value) {
-                this.route.navigate(['/package/']);
-              } else if (result.value == undefined) {
-                this.route.navigate(['/package/']);
-              } else {
-                Swal.fire('Ocurrio un error!', '', 'warning');
-              }
-            });
-          }
-        });
-    } else {
-      this.packagesService
-        .putPackage(this.packageForm.value, this.productsList)
-        .subscribe((x) => {
-          if (x.success) {
-            Swal.fire('Registro guardado!', '', 'success').then((result) => {
-              if (result.value) {
-                this.route.navigate(['/package/']);
-              } else if (result.value == undefined) {
-                this.route.navigate(['/package/']);
-              } else {
-                Swal.fire('Ocurrio un error!', '', 'warning');
-              }
-            });
-          }
-        });
+    if (this.file == undefined) {
+      console.log(this.file);
     }
+    if (this.file != undefined) {
+      this.commonService.uploadImg(this.file).subscribe((data) => {
+        this.packageForm.get('image')?.patchValue(data.data);
+        if (this.isNewPackage) {
+          this.savePackage();
+        } else {
+          this.updatePackage();
+        }
+      });
+    } else {
+      if (this.isNewPackage) {
+        this.savePackage();
+      } else {
+        this.updatePackage();
+      }
+    }
+  }
+
+  savePackage() {
+    this.packagesService
+      .postPackage(this.packageForm.value, this.productsList)
+      .subscribe((x) => {
+        if (x.success) {
+          Swal.fire('Registro guardado!', '', 'success').then((result) => {
+            if (result.value) {
+              this.route.navigate(['/package/']);
+            } else if (result.value == undefined) {
+              this.route.navigate(['/package/']);
+            } else {
+              Swal.fire('Ocurrio un error!', '', 'warning');
+            }
+          });
+        } else {
+          Swal.fire('Ocurrio un error!', '', 'warning');
+        }
+      });
+  }
+
+  updatePackage() {
+    this.packagesService
+      .putPackage(this.packageForm.value, this.productsList)
+      .subscribe((x) => {
+        if (x.success) {
+          Swal.fire('Registro guardado!', '', 'success').then((result) => {
+            if (result.value) {
+              this.route.navigate(['/package/']);
+            } else if (result.value == undefined) {
+              this.route.navigate(['/package/']);
+            } else {
+              Swal.fire('Ocurrio un error!', '', 'warning');
+            }
+          });
+        }
+      });
   }
 
   getTypePackage() {
@@ -162,6 +190,7 @@ export class FrmPackageComponent implements OnInit {
   }
 
   createForm(pkg?: PackageModel) {
+    console.log(pkg);
     this.productsList = pkg?.products!;
     let type: number = pkg?.typePackageId == null ? 1 : pkg?.typePackageId;
     let id: number = pkg?.packageId == null ? 0 : pkg?.packageId;
@@ -172,10 +201,18 @@ export class FrmPackageComponent implements OnInit {
       price: new FormControl(pkg?.price, Validators.required),
       typePackageId: new FormControl(type, Validators.required),
       products: new FormControl(''),
+      image: new FormControl(pkg?.img),
     });
   }
 
   back() {
     this.route.navigate(['/package/']);
+  }
+
+  uploadFile(files: any) {
+    if (files.target.files.length > 0) {
+      const file = files.target.files[0];
+      this.file = file;
+    }
   }
 }

@@ -17,7 +17,7 @@ const API = `api`;
 export const URL = `${SERVER}/${API}`;
 //export const URL = `${SERVER}:${PORT}/${API}`;
 
-
+export const UrlImages= `${SERVER}/Resources/Pkg/`;
 export const ApiUser = `${URL}/user`;
 export const ApiUserGetAll = `${URL}/user/GetAll`;
 export const ApiUserGet = `${URL}/user/Get`;
@@ -50,6 +50,7 @@ export const ApiInventoryGet = `${URL}/Inventory/Get`;
 export const ApiPackageGetAll = `${URL}/Package/GetAll`;
 export const ApiPackageGet = `${URL}/Package/Get`;
 export const ApiPackage = `${URL}/Package`;
+export const ApiPackageImg = `${URL}/Package/UploadImage`;
 
 export const GetStates = `${URL}/Catalog/GetState`;
 export const GetCities = `${URL}/Catalog/GetCity`;

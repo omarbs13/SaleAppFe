@@ -99,6 +99,7 @@ export interface PackageModel {
   typePackage: string;
   typePackageId: number;
   total: number;
+  img:string,
   products: ProductPackageModel[];
 }
 
@@ -145,3 +146,14 @@ export interface CreditCustomerModel {
   customerId: number;
   folio: number;
 }
+
+export interface OrderModel {
+  creditCustomerId: number;
+  referenceSale: string;
+  originalCost: number;
+  cost: number;
+  isPaidOut: boolean;
+  customerId: number;
+  folio: number;
+}
+
