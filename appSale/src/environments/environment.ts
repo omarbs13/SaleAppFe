@@ -29,6 +29,7 @@ export const ApiProviderGet = `${URL}/provider/Get`;
 export const ApiCustomer = `${URL}/Customer`;
 export const ApiCustomerGetAll = `${URL}/Customer/GetAll`;
 export const ApiCustomerGet = `${URL}/Customer/Get`;
+export const ApiCustomerGetByPhone = `${URL}/Customer/GetByPhone`;
 export const ApiCustomerGetPayments= `${URL}/Customer/GetPayments`;
 export const ApiCustomerGetCredits= `${URL}/Customer/GetCredits`;
 export const ApiCustomerPayment= `${URL}/Customer/CreatePayment`;
@@ -58,5 +59,11 @@ export const GetTypePackage = `${URL}/Catalog/GetTypePackage`;
 export const GetTypeProduct = `${URL}/Catalog/GetTypeProduct`;
 
 export const ApiExpense = `${URL}/Expense`;
+
+export const ApiDish = `${URL}/Dishes`;
+export const ApiDishGetAll = `${URL}/Dishes/GetAll`;
+export const ApiGetDishesPackages = `${URL}/Dishes/GetDishesPackages`;
+
+export const ApiOrder = `${URL}/Order`;
 
 export const RfcValid='^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$';

@@ -1,6 +1,10 @@
 <div class="card text-center">
     <div class="card-header">
         <h2 class="card-title">Menú del día</h2>
+        <select class="form-select" #select (change)="changeDishes($event.target)">
+            <option selected value="0">Todas</option>
+            <option [value]="item.subsidiaryId" *ngFor="let item of subsList">{{item.subsidiaryName}}</option>
+        </select>
     </div>
     <div class="card-body">
 
@@ -13,7 +17,7 @@
                         <div class="row">
                             <div class="col-md-12 col-xs-12 price">
                                 <h3>
-                                    <label>{{item.price|currency}}</label>
+                                    <label style="font-size:large; color:green">{{item.price|currency}}</label>
                                 </h3>
                             </div>
                         </div>
@@ -22,11 +26,20 @@
                                 <h3>{{item.description}}</h3>
                             </div>
                         </div>
-                        <ul>
-                            <li *ngFor="let prod of item.products">{{prod.productName}}</li>
-                            <li> <a href="#" class="btn btn-success btn-product"><span
-                                        class="glyphicon glyphicon-shopping-cart"></span> Agregar</a></li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <ul>
+                                    <li *ngFor="let prod of item.products">{{prod.productName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <button class="btn btn-primary" (click)="addDish(item)" style="height:42px ;"
+                                    type="button"> <em class="mdi mdi-image-plus"></em> Agregar</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -41,7 +54,11 @@
                 <div class="row">
                     <div class="col-4"> {{item.productName}}</div>
                     <div class="col-4"> {{item.salePrice|currency}}</div>
-                    <div class="col-4"> <input type="checkbox" class="chkProduct"></div>
+                    <div class="col-4">
+                        <em class="mdi mdi-arrow-down-bold-circle"
+                            style="cursor: pointer; color:green; font-size: large;" title="Agregar"
+                            (click)="addProduct(item)"></em>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,25 +90,36 @@
 
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let item of orderList">
                             <td>
-                                Sopa de pasta <br>
-                                <label style="font-size: 12px;">sopa de pasta con guisado</label>
+                                {{item.product}} <br>
+                                <label style="font-size: 12px;">{{item.desc}}</label>
                             </td>
-                            <td>                              
-                                <label style="font-size: 12px;">sopa de pasta con guisado</label>
-                            </td>
-                            <td style="width: 180px;">
-                                2 <br>
+                            <td style="width: 100px ;">
+                                <input type="text" class="form-control" [value]="item.cantidad" #cant
+                                    (blur)="calculate($event.target,item)">
                             </td>
                             <td style="width: 180px;">
-                                $100.00 <br>
+                                {{item.price|currency}} <br>
+                            </td>
+                            <td style="width: 180px;">
+                                {{item.total|currency}} <br>
                             </td>
                             <td style="width: 100px;">
-                                <input type="checkbox">
+                                <button type="button" class="btnDelete" title="borrar" (click)="delete(item.packageId)"><em
+                                        class="mdi mdi-trash-can icon"></em></button>
                             </td>
-                        </tr>                       
+                        </tr>
                     </tbody>
+                    <tfoot>
+                        <tr style="text-align: right;">
+                            <td>Total</td>
+                            <td> </td>
+                            <td>${{orderPrice}} </td>
+                            <td></td>
+                            <td> </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -104,45 +132,77 @@
         <br>
         <br>
         <hr>
-        <div class="row" style="text-align:left">
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="">Teléfono</label>
-                    <input type="text" class="form-control">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="row" style="text-align:left">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="">Teléfono</label>
+                        <input type="text" class="form-control" formControlName="phone"  #customerPhone (blur)="getCustomer($event.target)">
+                        <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="text-danger">
+                            <div *ngIf="phone?.errors?.['required']">
+                              El teléfono es requerido.
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Hora de entrega</label>
+                        <input type="time" class="form-control" formControlName="hour">
+                        <div *ngIf="hour?.invalid && (hour?.dirty || hour?.touched)" class="text-danger">
+                            <div *ngIf="hour?.errors?.['required']">
+                              La hora es requerida.
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tipo de pago</label>
+                        <select name="" id="" class="form-select" formControlName='paymentTypeId'>
+                            <option value="1">Tarjeta</option>
+                            <option value="2">Efectivo</option>
+                            <option value="3">Credito</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Recoger en sucursal?</label> &nbsp; &nbsp;
+                        <input type="checkbox" checked (change)="delivery()">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="">Hora de entrega</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Tipo de pago</label>
-                    <select name="" id="" class="form-control">
-                        <option value="">Tarjeta</option>
-                        <option value="">Efectivo</option>
-                        <option value="">Credito</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Recoger en sucursal?</label> &nbsp; &nbsp;
-                    <input type="checkbox">
+                <div class="col-5">
+                    <h2>Gracias por ser nuestro cliente</h2>
+                    <div *ngIf="customer.customerId">
+                        <br>
+                        <label for="">{{customer.customerName}}</label>
+                        <br>
+                        <label for="">{{customer.email}}</label>
+                        <br>
+                        <label for="">Saldo: {{customer.balance|currency}}</label>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-5">
-                <h2>Gracias por ser nuestro cliente</h2>
-                <br>
-                <label for="">Omar ceron ochoa</label>
-                <br>
-                <label for="">omarbs13@gmail.com</label>
-                <br>
-                <label for="">Saldo: $ 100.00</label>
+            <div class="row" style="text-align:left">
+                <div class="col-12">
+
+                    <div class="form-group" *ngIf="isDeliveryMatriz">
+                        <label for="">Dirección</label> &nbsp; &nbsp;
+                        <input type="text" class="form-control" formControlName='address'>
+                        <div *ngIf="isRequired" class="text-danger">
+                            <div >
+                              La dirección es requerida.
+                            </div>
+                          </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </div>
-    <div class="card-footer text-muted">
-        <div style="text-align: right;">
-            <button type="button" class="btn btn-danger">Cancelar</button>&nbsp; &nbsp;
-            <button class="btn btn-success">Hacer pedido</button>
-        </div>
+            <div class="card-footer text-muted">
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-danger">Cancelar</button>&nbsp; &nbsp;
+                    <button class="btn btn-success" >Hacer pedido</button>
+                </div>
+        
+            </div>
+        </form>
 
     </div>
+ 
 </div>

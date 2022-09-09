@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>Clientes</h1>
+<hr>
+<div mat-dialog-content>
+    <form [formGroup]="dishForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:40%;">
+                    <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Paquete</mat-label>
+                            <mat-select required="" formControlName="packageId">
+                                <mat-option *ngFor="let item of packages" [value]="item.packageId">{{item.packageName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="packageId?.invalid && (packageId?.dirty || packageId?.touched)" class="text-danger">
+                            <div *ngIf="packageId?.errors?.['required']">
+                                El paquete es requerido.
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:10%;"></td>
+                <td style="width:40%;">
+                    <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Sucursal</mat-label>
+                            <mat-select required="" formControlName="sucursalId">
+                                <mat-option value="0">Todas</mat-option>
+                                <mat-option *ngFor="let item of subs" [value]="item.subsidiaryId">
+                                    {{item.subsidiaryName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="sucursalId?.invalid && (sucursalId?.dirty || sucursalId?.touched)"
+                            class="text-danger">
+                            <div *ngIf="sucursalId?.errors?.['required']">
+                                La sucursal es requerida.
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+        <hr>
+        <div style="text-align: right;">
+            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancelar</button>&nbsp; &nbsp;
+            <button class="btn btn-success" [disabled]="!dishForm.valid">Guardar</button>
+        </div>
+
+    </form>
+</div>

@@ -34,6 +34,7 @@ import { OrderComponent } from './order/order.component';
 import { CurrentMenuComponent } from './current-menu/current-menu.component';
 import { ExpensesListComponent } from './prov/expenses-list/expenses-list.component';
 import { PaymentsListComponent } from './customer/payments-list/payments-list.component';
+import { CurrentModalComponent } from './current-menu/current-modal/current-modal.component';
 
 const materialModules = [
 /*   MatButtonModule,
@@ -71,7 +72,8 @@ const materialModules = [
     OrderComponent,
     CurrentMenuComponent,
     ExpensesListComponent,
-    PaymentsListComponent
+    PaymentsListComponent,
+    CurrentModalComponent
   ],
   imports: [CommonModule, RouterModule,materialModules,FormsModule,ReactiveFormsModule,TableModule],
   exports: [

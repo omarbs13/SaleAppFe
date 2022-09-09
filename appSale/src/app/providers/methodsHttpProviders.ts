@@ -21,6 +21,11 @@ export class MethodsHttpProvider {
     return this.http.get<any>(`${url}?${param}=${id}`);
   }
 
+  httpGetBy(url: string, p: string, param: string): Observable<any> {
+    return this.http.get<any>(`${url}?${param}=${p}`);
+  }
+
+
   deleteById(url: string, id: number, param: string): Observable<any> {
     return this.http.delete<any>(`${url}?${param}=${id}`);
   }

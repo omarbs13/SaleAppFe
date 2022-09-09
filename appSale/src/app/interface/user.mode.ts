@@ -30,6 +30,21 @@ export interface CustomerModel {
   phone: string;
 }
 
+export class CustomerModelClass {
+  customerId?: number;
+  customerName?: string;
+  email?: string;
+  rfc?: string;
+  balance?: number;
+  street?: string;
+  state?: string;
+  city?: string;
+  stateId?: number;
+  cityId?: number;
+  zipCode?: string;
+  phone?: string;
+}
+
 export interface ProviderModel {
   providerId: number;
   providerName: string;
@@ -99,7 +114,7 @@ export interface PackageModel {
   typePackage: string;
   typePackageId: number;
   total: number;
-  img:string,
+  img: string;
   products: ProductPackageModel[];
 }
 
@@ -157,3 +172,46 @@ export interface OrderModel {
   folio: number;
 }
 
+export interface DishModel {
+  menuDayId: number;
+  packageId: number;
+  sucursalId: number;
+  sucursalName: string;
+  packageName: string;
+  packageDescription: string;
+}
+
+export interface DishPackageModel {
+  packageId: number;
+  packageName: string;
+  description: string;
+  price: number;
+  typePackage: string;
+  typePackageId: number;
+  total: number;
+  img: string;
+  products: ProductPackageModel[];
+}
+
+export class OrderDetailModel {
+  product: string = '';
+  desc: string = '';
+  price: number = 0;
+  total: number = 0;
+  cantidad: number = 0;
+  packageId: number = 0;
+  productId: number = 0;
+}
+
+export class OrderModel {
+  customerId: number = 0;
+  cost: number = 0;
+  deliveryTime: string = '';
+  paymentType: number = 0;
+  sucursal: number = 0;
+  storeDelivery: boolean = true;
+  user: string = '';
+  phone: string = '';
+  address: string = '';
+  detail: OrderDetailModel[] = [];
+}

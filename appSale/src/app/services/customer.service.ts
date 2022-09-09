@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ApiCustomer, ApiCustomerGet, ApiCustomerGetAll, ApiCustomerGetCredits, ApiCustomerGetPayments, ApiCustomerPayment } from 'src/environments/environment';
+import { ApiCustomer, ApiCustomerGet, ApiCustomerGetAll, ApiCustomerGetByPhone, ApiCustomerGetCredits, ApiCustomerGetPayments, ApiCustomerPayment } from 'src/environments/environment';
 import { CreditCustomerModel, CustomerModel, PaymentCustomerModel } from '../interface/user.mode';
 import { MethodsHttpProvider } from '../providers/methodsHttpProviders';
 
@@ -44,6 +44,14 @@ export class CustomerService {
 
   geCustomer(id: number): Observable<CustomerModel> {
     return this.methodsHttp.httpGetById(ApiCustomerGet, id,'id').pipe(
+      map((response) => {
+        return response.data;
+      })
+    );
+  }
+
+  geCustomerByPhone(phone: string): Observable<CustomerModel> {
+    return this.methodsHttp.httpGetBy(ApiCustomerGetByPhone, phone,'phone').pipe(
       map((response) => {
         return response.data;
       })
